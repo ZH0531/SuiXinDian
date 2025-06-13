@@ -1,0 +1,607 @@
+/* ==========================================================================
+   随心点 - 主样式表
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS变量定义
+   ========================================================================== */
+:root {
+  /* 主色调 */
+  --primary-color: #FF6B35;      /* 暖橙色 - 食物相关 */
+  --primary-dark: #E05A2A;       /* 深橙色 */
+  --primary-light: #FF9980;      /* 浅橙色 */
+  --secondary-color: #4A7C59;    /* 深绿色 - 自然和健康 */
+  --accent-color: #F3A712;       /* 黄色 - 引起注意 */
+  
+  /* 背景和文本色 */
+  --background-color: #F9F9F9;   /* 浅灰背景 */
+  --text-color: #333333;         /* 深灰文本 */
+  --light-text: #777777;         /* 浅灰文本 */
+  --border-color: #E0E0E0;       /* 边框颜色 */
+  
+  /* 状态色 */
+  --error-color: #F44336;        /* 错误红色 */
+  --success-color: #4CAF50;      /* 成功绿色 */
+  
+  /* 间距 */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+  --spacing-xxl: 40px;
+  
+  /* 过渡动画 */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   2. 重置和基础样式
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   3. 布局容器
+   ========================================================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+/* ==========================================================================
+   4. 导航栏样式
+   ========================================================================== */
+header {
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: var(--spacing-md) 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo样式 */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.logo i {
+  margin-right: var(--spacing-sm);
+  font-size: 28px;
+}
+
+/* 导航菜单 */
+nav ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: var(--spacing-lg);
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 5px;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+}
+
+nav a:hover {
+  background-color: var(--primary-light);
+  color: white;
+  transform: translateY(-2px);
+}
+
+nav a.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+nav a i {
+  margin-right: 8px;
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   5. 管理员导航栏
+   ========================================================================== */
+.admin-header {
+  background-color: #333;
+  padding: 12px 0;
+  box-shadow: var(--shadow-md);
+}
+
+.admin-nav {
+  display: flex;
+  align-items: center;
+}
+
+.admin-nav .logo {
+  margin-right: auto;
+  color: white;
+}
+
+.admin-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-nav li {
+  margin-left: var(--spacing-md);
+}
+
+.admin-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px var(--spacing-md);
+  border-radius: 5px;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+}
+
+.admin-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.admin-nav a.active {
+  background-color: var(--primary-color);
+}
+
+.admin-nav a i {
+  margin-right: 8px;
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   6. 用户菜单和下拉
+   ========================================================================== */
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-user-area {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 4px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  transition: all var(--transition-normal);
+  background: transparent;
+}
+
+.header-user-area:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  margin-left: 8px;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  background-color: white;
+  box-shadow: var(--shadow-lg);
+  border-radius: 5px;
+  padding: var(--spacing-sm) 0;
+  display: none;
+  z-index: 100;
+}
+
+.user-menu:hover .user-dropdown {
+  display: block;
+}
+
+.user-dropdown a {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all var(--transition-normal);
+}
+
+.user-dropdown a:hover {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+.user-dropdown .divider {
+  height: 1px;
+  background-color: #eee;
+  margin: var(--spacing-xs) 0;
+}
+
+.user-dropdown-header {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid #eee;
+  margin-bottom: var(--spacing-xs);
+}
+
+.user-dropdown-name {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.user-dropdown-role {
+  font-size: 12px;
+  color: var(--light-text);
+}
+
+.user-name {
+  margin-right: var(--spacing-xs);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   7. 特效和动画
+   ========================================================================== */
+/* 链接悬停特效 */
+.feature-link {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: all var(--transition-normal);
+}
+
+.feature-link:hover {
+  color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+.feature-link:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform var(--transition-normal);
+}
+
+.feature-link:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* 功能项悬停效果 */
+.feature-item {
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* ==========================================================================
+   8. 按钮样式
+   ========================================================================== */
+.btn,
+.button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+}
+
+.btn {
+  padding: 8px var(--spacing-md);
+  font-size: 14px;
+}
+
+.button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: 16px;
+}
+
+.btn:hover,
+.button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   9. 卡片组件
+   ========================================================================== */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  margin-bottom: var(--spacing-lg);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-body {
+  padding: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   10. 消息提示
+   ========================================================================== */
+.error-message,
+.success-message {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: var(--spacing-lg);
+  font-size: 0.9rem;
+  text-align: center;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+
+.error-message {
+  background-color: #FFEBEE;
+  color: var(--error-color);
+  border-left-color: var(--error-color);
+}
+
+.success-message {
+  background-color: #E8F5E9;
+  color: var(--success-color);
+  border-left-color: var(--success-color);
+}
+
+/* ==========================================================================
+   11. 页脚
+   ========================================================================== */
+footer {
+  background-color: #333;
+  color: white;
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+  margin-top: var(--spacing-xxl);
+}
+
+/* ==========================================================================
+   12. 工具类
+   ========================================================================== */
+.text-center { text-align: center; }
+.mt-20 { margin-top: var(--spacing-lg); }
+.mb-20 { margin-bottom: var(--spacing-lg); }
+.d-flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.align-center { align-items: center; }
+
+/* ==========================================================================
+   13. 测试导航页
+   ========================================================================== */
+.test-nav {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  padding: 25px;
+  margin: var(--spacing-xxl) auto;
+  max-width: 900px;
+  transition: all var(--transition-normal);
+}
+
+.test-nav:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.test-nav h1 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  font-size: 2.2rem;
+}
+
+.test-nav .timestamp {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--light-text);
+  margin-bottom: var(--spacing-xl);
+  font-style: italic;
+}
+
+.test-nav .category {
+  margin-bottom: var(--spacing-xl);
+}
+
+.test-nav h2 {
+  color: var(--secondary-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+}
+
+.test-nav ul {
+  list-style: none;
+  padding-left: var(--spacing-md);
+}
+
+.test-nav li {
+  margin: 12px 0;
+  position: relative;
+  padding-left: 24px;
+}
+
+.test-nav li:before {
+  content: '▶';
+  color: var(--accent-color);
+  position: absolute;
+  left: 0;
+  font-size: 0.8em;
+  top: 4px;
+}
+
+.test-nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  display: inline-block;
+}
+
+.test-nav a:hover {
+  color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   14. 认证表单
+   ========================================================================== */
+.auth-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  width: 380px;
+  padding: 35px;
+  margin: 80px auto;
+  transition: all var(--transition-normal);
+}
+
+.auth-container:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-header h2 {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.auth-header p {
+  color: var(--light-text);
+  font-size: 0.95rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}
+
+.form-group .optional {
+  color: var(--light-text);
+  font-weight: normal;
+  font-size: 0.85rem;
+}
+
+.links {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.links a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.links a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+} 

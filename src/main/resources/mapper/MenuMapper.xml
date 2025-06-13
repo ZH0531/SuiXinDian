@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh8888.dao.MenuDao">
+    
+    <!-- 结果映射 -->
+    <resultMap id="BaseResultMap" type="com.zh8888.model.Menu">
+        <id column="id" property="id" />
+        <result column="menu_no" property="menuNo" />
+        <result column="name" property="name" />
+        <result column="price" property="price" />
+        <result column="image_url" property="imageUrl" />
+        <result column="description" property="description" />
+        <result column="tags" property="tags" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+    
+    <!-- 通用列 -->
+    <sql id="Base_Column_List">
+        id, menu_no, name, price, image_url, description, tags, create_time
+    </sql>
+    
+    <!-- 获取所有菜品 -->
+    <select id="getAllMenus" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 根据ID查询菜品 -->
+    <select id="getMenuById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE id = #{id}
+    </select>
+    
+    <!-- 根据菜品编号查询菜品 -->
+    <select id="getMenuByNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE menu_no = #{menuNo}
+    </select>
+    
+    <!-- 根据标签搜索菜品 -->
+    <select id="getMenusByTag" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE tags LIKE CONCAT('%', #{tag}, '%')
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 根据菜品名称模糊搜索 -->
+    <select id="searchMenusByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 获取热菜列表 -->
+    <select id="getHotDishes" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE tags LIKE '%热菜%'
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 获取凉菜列表 -->
+    <select id="getColdDishes" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE tags LIKE '%凉菜%'
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 获取汤类列表 -->
+    <select id="getSoups" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE tags LIKE '%汤类%'
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 获取主食列表 -->
+    <select id="getMainFoods" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE tags LIKE '%主食%'
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 获取饮品列表 -->
+    <select id="getDrinks" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM menu
+        WHERE tags LIKE '%饮品%'
+        ORDER BY menu_no
+    </select>
+    
+    <!-- 添加新菜品 -->
+    <insert id="insertMenu" parameterType="com.zh8888.model.Menu" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO menu (
+            menu_no, name, price, image_url, description, tags
+        ) VALUES (
+            #{menuNo}, #{name}, #{price}, #{imageUrl}, #{description}, #{tags}
+        )
+    </insert>
+    
+    <!-- 更新菜品信息 -->
+    <update id="updateMenu" parameterType="com.zh8888.model.Menu">
+        UPDATE menu
+        <set>
+            <if test="menuNo != null">menu_no = #{menuNo},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="tags != null">tags = #{tags}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 删除菜品 -->
+    <delete id="deleteMenu" parameterType="java.lang.Integer">
+        DELETE FROM menu WHERE id = #{id}
+    </delete>
+    
+</mapper> 

@@ -1,0 +1,595 @@
+/* ==========================================================================
+   页面特定样式表
+   ========================================================================== */
+
+/* ==========================================================================
+   1. 首页样式
+   ========================================================================== */
+.main-content {
+    display: flex;
+    margin: var(--spacing-xxl) 0;
+    gap: var(--spacing-xxl);
+    min-height: calc(100vh - 250px);
+}
+
+.intro-section {
+    flex: 3;
+}
+
+.login-section {
+    flex: 2;
+}
+
+/* 介绍卡片 */
+.intro-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    transition: transform var(--transition-normal);
+}
+
+.intro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-dark);
+    display: flex;
+    align-items: center;
+}
+
+.section-title i {
+    margin-right: var(--spacing-sm);
+    color: var(--primary-color);
+}
+
+.intro-text {
+    margin-bottom: var(--spacing-lg);
+    color: var(--light-text);
+}
+
+.feature-list {
+    list-style: none;
+}
+
+.feature-content p {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+/* 登录卡片 */
+.login-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    transition: transform var(--transition-normal);
+}
+
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-header h2 {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: var(--spacing-sm);
+}
+
+.login-header p {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+.login-form .form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px var(--spacing-md);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color var(--transition-normal);
+}
+
+.login-form input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-normal);
+}
+
+.login-form button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.login-links {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+}
+
+.login-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 14px;
+    margin: 0 var(--spacing-sm);
+    transition: color var(--transition-normal);
+}
+
+.login-links a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* 页面导航卡片 */
+.nav-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-lg);
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: var(--spacing-sm);
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all var(--transition-normal);
+}
+
+.nav-link:hover {
+    background-color: var(--primary-light);
+    color: white;
+    transform: translateX(5px);
+}
+
+.nav-icon {
+    margin-right: var(--spacing-sm);
+    width: 20px;
+    text-align: center;
+}
+
+/* 登录选项卡 */
+.login-options {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.login-option {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.login-option.active {
+    background-color: rgba(255, 107, 53, 0.2);
+    font-weight: bold;
+}
+
+.login-option:hover {
+    background-color: rgba(255, 107, 53, 0.1);
+    transform: translateY(-2px);
+}
+
+/* 页脚内容 */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: var(--spacing-lg);
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: var(--spacing-sm);
+    color: #dfe6e9;
+}
+
+.footer-links a {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: #dfe6e9;
+    text-decoration: none;
+    transition: color var(--transition-normal);
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 动画效果 */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-10px); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+}
+
+.shake-animation {
+    animation: shake 0.5s linear;
+}
+
+/* 快捷入口特效 */
+.feature-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-link-wrapper:hover .feature-item {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.feature-link-wrapper:hover h3 {
+    color: var(--primary-color);
+}
+
+.admin-feature:hover h3 {
+    color: #333;
+}
+
+.admin-item:hover {
+    background-color: rgba(51, 51, 51, 0.05);
+}
+
+.feature-icon {
+    margin-right: var(--spacing-md);
+    width: 40px;
+    height: 40px;
+    background-color: var(--primary-light);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.admin-icon {
+    background-color: #333;
+}
+
+.feature-content h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    transition: color var(--transition-normal);
+}
+
+/* ==========================================================================
+   2. 响应式布局
+   ========================================================================== */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .login-section {
+        order: -1;
+    }
+    
+    .profile-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        width: 90%;
+        padding: 25px;
+    }
+}
+
+/* ==========================================================================
+   3. 菜单页面样式
+   ========================================================================== */
+.menu-container {
+    padding: var(--spacing-xxl) 0;
+}
+
+.menu-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+}
+
+.menu-categories {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--primary-color);
+    background-color: white;
+    color: var(--primary-color);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.category-btn:hover,
+.category-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.menu-item {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.menu-item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.menu-item-content {
+    padding: var(--spacing-lg);
+}
+
+.menu-item-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-color);
+}
+
+.menu-item-description {
+    color: var(--light-text);
+    margin-bottom: var(--spacing-md);
+    font-size: 14px;
+}
+
+.menu-item-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-item-price {
+    font-size: 24px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   4. 关于我们页面样式
+   ========================================================================== */
+.about-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 48px;
+    margin-bottom: var(--spacing-lg);
+}
+
+.about-content {
+    padding: var(--spacing-xxl) 0;
+}
+
+.about-section {
+    margin-bottom: var(--spacing-xxl);
+}
+
+.about-section h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-xl);
+}
+
+.value-card {
+    text-align: center;
+    padding: var(--spacing-xl);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.value-icon {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   5. 用户仪表板样式
+   ========================================================================== */
+.dashboard-container {
+    padding: var(--spacing-xxl) 0;
+}
+
+.dashboard-header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+    background-color: white;
+    padding: var(--spacing-lg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: all var(--transition-normal);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat-label {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   6. 管理员仪表板样式
+   ========================================================================== */
+.admin-dashboard {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    background-color: #2c3e50;
+    color: white;
+    width: 250px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 60px;
+}
+
+.admin-content {
+    margin-left: 250px;
+    padding: var(--spacing-xl);
+}
+
+.admin-menu {
+    list-style: none;
+}
+
+.admin-menu-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-menu-link {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: white;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+}
+
+.admin-menu-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-left: var(--spacing-xl);
+}
+
+.admin-menu-link.active {
+    background-color: var(--primary-color);
+} 
