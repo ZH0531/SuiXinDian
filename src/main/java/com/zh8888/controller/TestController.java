@@ -29,9 +29,10 @@ public class TestController {
     @ResponseBody
     public String getCurrentTime() {
         try {
-            LocalDateTime now = testDao.getCurrentTime();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
-            return "数据库连接成功，当前时间: " + now.format(formatter);
+            String inTime = testDao.getCurrentTime();
+            LocalDateTime outTime = LocalDateTime.parse(inTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
+            return "数据库连接成功，当前时间: " + outTime.format(outFormatter);
         } catch (Exception e) {
             return "数据库连接失败: " + e.getMessage();
         }
@@ -45,6 +46,11 @@ public class TestController {
     @GetMapping("/view")
     public String testView(Model model) {
         model.addAttribute("message", "Hello Spring MVC!");
-        return "test";
+        // 设置页面元信息
+        model.addAttribute("pageTitle", "系统测试 - 随心点");
+        model.addAttribute("pageDescription", "系统功能测试页面");
+        model.addAttribute("pageType", "public");
+        
+        return "public/test";
     }
 } 

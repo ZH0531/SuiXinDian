@@ -10,5 +10,5 @@ public interface TestDao {
      * 测试数据库连接
      * @return 当前时间
      */
-    LocalDateTime getCurrentTime();
+    String getCurrentTime();
 } 

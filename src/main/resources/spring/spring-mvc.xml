@@ -10,8 +10,8 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- 扫描controller -->
-    <context:component-scan base-package="com.zh8888.controller"/>
+    <!-- 扫描controller和config -->
+    <context:component-scan base-package="com.zh8888.controller,com.zh8888.config"/>
 
     <!-- 开启mvc注解，配置消息转换器 -->
     <mvc:annotation-driven>
@@ -28,8 +28,20 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
+    <!-- 配置文件上传解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为10MB -->
+        <property name="maxUploadSize" value="10485760"/>
+        <!-- 设置上传文件的编码 -->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"/>
     
     <!-- 视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
