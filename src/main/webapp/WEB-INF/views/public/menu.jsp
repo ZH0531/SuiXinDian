@@ -909,8 +909,29 @@ $(document).ready(function() {
             return;
         }
         
-        // TODO: 跳转到结算页面
-        alert('结算功能待实现\n总金额：¥' + cart.getTotal().toFixed(2));
+        // 调用后端创建订单接口
+        const $btn = $(this);
+        $btn.prop('disabled', true).text('提交中...');
+        
+        $.ajax({
+            url: contextPath + '/orders/create',
+            method: 'POST',
+            success: function(response) {
+                if (response.success) {
+                    // 清空前端购物车显示
+                    cart.clear();
+                    // 跳转到订单详情页
+                    window.location.href = contextPath + '/user/order/' + response.orderId;
+                } else {
+                    alert(response.message || '下单失败，请稍后重试');
+                    $btn.prop('disabled', false).text('结算');
+                }
+            },
+            error: function() {
+                alert('服务器错误，请稍后重试');
+                $btn.prop('disabled', false).text('结算');
+            }
+        });
     });
 });
 </script>

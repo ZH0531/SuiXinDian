@@ -523,7 +523,7 @@
                                     <div class="order-status status-completed">已完成</div>
                                     <div class="order-amount">¥68.00</div>
                                     <div class="order-action">
-                                        <a href="#" class="btn">再来一单</a>
+                                        <a href="#" class="btn">订单详情</a>
                                     </div>
                                 </div>
                             </div>

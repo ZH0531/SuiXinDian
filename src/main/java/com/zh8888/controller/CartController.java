@@ -38,7 +38,7 @@ public class CartController {
         
         try {
             // 检查用户是否登录
-            User currentUser = (User) session.getAttribute("currentUser");
+            User currentUser = (User) session.getAttribute("user");
             if (currentUser == null) {
                 response.put("success", false);
                 response.put("message", "请先登录");
@@ -79,7 +79,7 @@ public class CartController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            User currentUser = (User) session.getAttribute("currentUser");
+            User currentUser = (User) session.getAttribute("user");
             if (currentUser == null) {
                 response.put("success", false);
                 response.put("message", "请先登录");
@@ -119,7 +119,7 @@ public class CartController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            User currentUser = (User) session.getAttribute("currentUser");
+            User currentUser = (User) session.getAttribute("user");
             if (currentUser == null) {
                 response.put("success", false);
                 response.put("message", "请先登录");
@@ -156,7 +156,7 @@ public class CartController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            User currentUser = (User) session.getAttribute("currentUser");
+            User currentUser = (User) session.getAttribute("user");
             if (currentUser == null) {
                 response.put("success", false);
                 response.put("message", "请先登录");
@@ -190,7 +190,7 @@ public class CartController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            User currentUser = (User) session.getAttribute("currentUser");
+            User currentUser = (User) session.getAttribute("user");
             if (currentUser == null) {
                 response.put("success", false);
                 response.put("message", "请先登录");
@@ -216,5 +216,16 @@ public class CartController {
         }
         
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * 前端同步购物车到服务器（目前仅返回成功以消除404）
+     */
+    @PostMapping("/sync")
+    @ResponseBody
+    public ResponseEntity<Map<String,Object>> syncCart(HttpSession session) {
+        Map<String,Object> resp=new HashMap<>();
+        resp.put("success", true);
+        return ResponseEntity.ok(resp);
     }
 } 
