@@ -107,4 +107,13 @@
         FROM user
         WHERE email = #{email}
     </select>
+    
+    <!-- 获取最后一个用户ID -->
+    <select id="getLastUserId" resultType="java.lang.String">
+        SELECT user_id
+        FROM user
+        WHERE user_id LIKE 'sxd%'
+        ORDER BY id DESC
+        LIMIT 1
+    </select>
 </mapper> 

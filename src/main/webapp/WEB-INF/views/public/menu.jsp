@@ -845,20 +845,22 @@ $(document).ready(function() {
         const keyword = $(this).val().toLowerCase().trim();
         
         if (keyword === '') {
-            // 如果搜索框为空，显示所有菜品并恢复原来的分类显示
+            // 如果搜索框为空，隐藏搜索结果区域（如果存在）
+            $('#searchResults').hide();
+            
+            // 显示所有分类和菜品
+            $('.category-section').not('#searchResults').show();
             $('.dish-card').show();
-            $('.category-section').show();
             
             // 恢复当前选中的分类过滤
             const activeCategory = $('.category-btn.active').data('category');
             if (activeCategory !== 'all') {
-                $('.category-section').hide();
+                $('.category-section').not('#searchResults').hide();
                 $('.category-section[data-category="' + activeCategory + '"]').show();
             }
         } else {
-            // 隐藏所有分类和菜品
-            $('.category-section').hide();
-            $('.dish-card').hide();
+            // 隐藏所有原始分类
+            $('.category-section').not('#searchResults').hide();
             
             // 创建临时结果容器（如果不存在）
             if ($('#searchResults').length === 0) {
@@ -871,13 +873,14 @@ $(document).ready(function() {
             // 查找匹配的菜品
             let matchCount = 0;
             $('.dish-card').each(function() {
-                const dishName = $(this).find('.dish-title').text().toLowerCase();
-                const dishDesc = $(this).find('.dish-desc').text().toLowerCase();
-                const dishTags = $(this).find('.dish-tags').text().toLowerCase();
+                const $this = $(this);
+                const dishName = $this.find('.dish-title').text().toLowerCase();
+                const dishDesc = $this.find('.dish-desc').text().toLowerCase();
+                const dishTags = $this.find('.dish-tags').text().toLowerCase();
 
                 if (dishName.includes(keyword) || dishDesc.includes(keyword) || dishTags.includes(keyword)) {
                     // 复制菜品卡片到搜索结果区
-                    $(this).clone(true).appendTo('#searchResults .menu-grid');
+                    $this.clone(true).appendTo('#searchResults .menu-grid');
                     matchCount++;
                 }
             });

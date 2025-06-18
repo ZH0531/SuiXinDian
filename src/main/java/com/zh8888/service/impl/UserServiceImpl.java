@@ -67,12 +67,34 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean updateUser(User user) {
+        if (user == null || user.getId() == null) {
+            return false;
+        }
+        
+        // 检查用户是否存在
+        User existingUser = userDao.getUserById(user.getId());
+        if (existingUser == null) {
+            return false;
+        }
+        
+        // 如果有提供新密码，需要加密
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            user.setPassword(encryptPassword(user.getPassword()));
+        } else {
+            // 不更新密码字段
+            user.setPassword(null);
+        }
+        
         return userDao.updateUser(user) > 0;
     }
 
     @Override
     @Transactional
     public boolean deleteUser(Integer id) {
+        if (id == null) {
+            return false;
+        }
+        
         return userDao.deleteUser(id) > 0;
     }
 
@@ -111,42 +133,27 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-        // 如果是新用户，插入
-        if (user.getId() == null) {
-            userDao.insertUser(user);
-        } else {
-            // 否则更新用户信息
-            userDao.updateUser(user);
-        }
+        userDao.insertUser(user);
     }
     
     @Override
     public String generateUniqueUserId() {
-        // 获取所有用户，用于确定最大的序号
-        List<User> allUsers = getAllUsers();
-        int maxNum = 0;
+        // 获取最后一个用户ID
+        String lastUserId = userDao.getLastUserId();
         
-        // 遍历所有用户，找出sxd开头的用户ID，并获取最大序号
-        for (User user : allUsers) {
-            String userId = user.getUserId();
-            if (userId != null && userId.startsWith("sxd") && userId.length() >= 8) {
-                try {
-                    // 提取数字部分
-                    String numStr = userId.substring(3);
-                    int num = Integer.parseInt(numStr);
-                    if (num > maxNum) {
-                        maxNum = num;
-                    }
-                } catch (NumberFormatException e) {
-                    // 忽略无法解析的用户ID
-                }
+        int nextNum = 1;
+        if (lastUserId != null && lastUserId.length() >= 8) {
+            try {
+                // 提取用户ID中的数字部分
+                String numPart = lastUserId.substring(3);
+                nextNum = Integer.parseInt(numPart) + 1;
+            } catch (NumberFormatException e) {
+                // 如果解析失败，默认从1开始
+                nextNum = 1;
             }
         }
         
-        // 下一个序号
-        int nextNum = maxNum + 1;
-        
-        // 格式化为5位数字，前面补0
+        // 格式化为5位数，不足前面补0
         return "sxd" + String.format("%05d", nextNum);
     }
 } 

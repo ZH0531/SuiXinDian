@@ -163,6 +163,7 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-tachometer-alt"></i> 仪表盘</a></li>
                     <li><a href="${pageContext.request.contextPath}/menu/admin"><i class="fas fa-book-open"></i> 菜品管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users"></i> 用户管理</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/logout"><i class="fas fa-sign-out-alt"></i> 退出</a></li>
                 </ul>
             </div>
@@ -204,7 +205,7 @@
                     <div class="card-body">
                         <div class="stats-value">128</div>
                         <div class="stats-label">在售菜品</div>
-                        <a href="${pageContext.request.contextPath}/admin/dishes" class="btn">
+                        <a href="${pageContext.request.contextPath}/menu/admin" class="btn">
                             <i class="fas fa-cog"></i> 管理菜品
                         </a>
                     </div>
@@ -236,64 +237,10 @@
                     </div>
                 </div>
             </div>
-            
-            <h2 class="section-title"><i class="fas fa-tasks"></i> 快捷操作</h2>
-            
-            <div class="dashboard-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-plus"></i> 添加新菜品
-                    </div>
-                    <div class="card-body">
-                        <p>添加新的菜品到系统中，包括名称、价格、分类、图片等信息。</p>
-                        <a href="${pageContext.request.contextPath}/admin/dishes/add" class="btn">
-                            <i class="fas fa-plus"></i> 添加菜品
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-cog"></i> 系统设置
-                    </div>
-                    <div class="card-body">
-                        <p>管理系统的全局设置，包括网站标题、联系方式、支付设置等。</p>
-                        <a href="${pageContext.request.contextPath}/admin/settings" class="btn">
-                            <i class="fas fa-cog"></i> 前往设置
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-bell"></i> 订单通知
-                    </div>
-                    <div class="card-body">
-                        <p>设置订单相关的通知规则，包括新订单提醒、订单状态变更等。</p>
-                        <a href="${pageContext.request.contextPath}/admin/notifications" class="btn">
-                            <i class="fas fa-bell"></i> 管理通知
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-ticket-alt"></i> 优惠券管理
-                    </div>
-                    <div class="card-body">
-                        <p>创建和管理系统中的优惠券，设置优惠规则、使用条件和有效期。</p>
-                        <a href="${pageContext.request.contextPath}/admin/coupons" class="btn">
-                            <i class="fas fa-ticket-alt"></i> 管理优惠券
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+
     <footer>
         <div class="container">
-            <p>© 2023 随心点 | 后台管理系统</p>
+            <p>© 2025 随心点 | 后台管理系统</p>
         </div>
     </footer>
 </body>
