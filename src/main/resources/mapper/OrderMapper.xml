@@ -17,6 +17,14 @@
         FROM `order` WHERE user_id = #{userId} ORDER BY create_time DESC
     </select>
 
+    <select id="findLatestOrderByUserId" resultType="com.zh8888.model.Order">
+        SELECT id, order_no AS orderNo, user_id AS userId, total_amount AS totalAmount, status, create_time AS createdAt, update_time AS updatedAt
+        FROM `order` 
+        WHERE user_id = #{userId} 
+        ORDER BY create_time DESC 
+        LIMIT 1
+    </select>
+
     <update id="updateOrderStatus">
         UPDATE `order` SET status = #{status}, update_time = NOW() WHERE id = #{id}
     </update>

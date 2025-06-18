@@ -273,11 +273,19 @@
         }
         
         .search-input {
-            padding: 0.5rem 2.5rem 0.5rem 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            width: 250px;
+            width: 200px;
+            padding: 8px 12px 8px 35px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            width: 240px;
+            border-color: #FF6B35;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
         }
         
         .search-icon {
@@ -451,6 +459,34 @@
             .search-input {
                 width: 100%;
             }
+        }
+        
+        /* 搜索结果样式 */
+        #searchResults {
+            animation: fadeIn 0.3s ease-in-out;
+            margin-bottom: 2rem;
+            background-color: #fff8f4;
+            border-radius: 10px;
+            padding: 1rem;
+        }
+        
+        #searchResults .category-title {
+            color: #FF6B35;
+            border-bottom: 2px solid #FF6B35;
+            padding-bottom: 0.5rem;
+        }
+        
+        .no-results {
+            padding: 2rem;
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            width: 100%;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -806,32 +842,53 @@ $(document).ready(function() {
     
     // 搜索功能
     $('#dishSearch').on('input', function() {
-        const keyword = $(this).val().toLowerCase();
+        const keyword = $(this).val().toLowerCase().trim();
         
         if (keyword === '') {
+            // 如果搜索框为空，显示所有菜品并恢复原来的分类显示
             $('.dish-card').show();
             $('.category-section').show();
+            
+            // 恢复当前选中的分类过滤
+            const activeCategory = $('.category-btn.active').data('category');
+            if (activeCategory !== 'all') {
+                $('.category-section').hide();
+                $('.category-section[data-category="' + activeCategory + '"]').show();
+            }
         } else {
+            // 隐藏所有分类和菜品
+            $('.category-section').hide();
+            $('.dish-card').hide();
+            
+            // 创建临时结果容器（如果不存在）
+            if ($('#searchResults').length === 0) {
+                $('#menuContent').prepend('<div id="searchResults" class="category-section"><h2 class="category-title">搜索结果</h2><div class="menu-grid"></div></div>');
+            } else {
+                $('#searchResults .menu-grid').empty();
+                $('#searchResults').show();
+            }
+            
+            // 查找匹配的菜品
+            let matchCount = 0;
             $('.dish-card').each(function() {
                 const dishName = $(this).find('.dish-title').text().toLowerCase();
                 const dishDesc = $(this).find('.dish-desc').text().toLowerCase();
                 const dishTags = $(this).find('.dish-tags').text().toLowerCase();
 
                 if (dishName.includes(keyword) || dishDesc.includes(keyword) || dishTags.includes(keyword)) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
+                    // 复制菜品卡片到搜索结果区
+                    $(this).clone(true).appendTo('#searchResults .menu-grid');
+                    matchCount++;
                 }
             });
-
-            // 隐藏没有可见菜品的分类
-            $('.category-section').each(function() {
-                if ($(this).find('.dish-card:visible').length === 0) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
-            });
+            
+            // 显示搜索结果数量
+            $('#searchResults .category-title').text('搜索结果 (' + matchCount + ')');
+            
+            // 如果没有结果，显示提示
+            if (matchCount === 0) {
+                $('#searchResults .menu-grid').html('<div class="no-results">没有找到匹配"' + keyword + '"的菜品</div>');
+            }
         }
     });
 

@@ -118,4 +118,14 @@ public class OrderServiceImpl implements OrderService {
         }
         return orders;
     }
+
+    @Override
+    public Order getLatestOrderByUserId(int userId) {
+        Order latestOrder = orderDao.findLatestOrderByUserId(userId);
+        if (latestOrder != null) {
+            List<OrderItem> orderItems = orderItemDao.findOrderItemsByOrderId(latestOrder.getId());
+            latestOrder.setOrderItems(orderItems);
+        }
+        return latestOrder;
+    }
 } 

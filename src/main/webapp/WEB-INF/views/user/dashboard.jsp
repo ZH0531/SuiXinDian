@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -515,17 +516,35 @@
                             </div>
                             
                             <div class="order-list">
-                                <div class="order-item">
-                                    <div class="order-info">
-                                        <div class="order-id">订单号: ORD20230520201</div>
-                                        <div class="order-date">2023-05-20 12:30</div>
-                                    </div>
-                                    <div class="order-status status-completed">已完成</div>
-                                    <div class="order-amount">¥68.00</div>
-                                    <div class="order-action">
-                                        <a href="#" class="btn">订单详情</a>
-                                    </div>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${latestOrder != null}">
+                                        <div class="order-item">
+                                            <div class="order-info">
+                                                <div class="order-id">订单号: ${latestOrder.orderNo}</div>
+                                                <div class="order-date">
+                                                    <fmt:formatDate value="${latestOrder.createdAt}" pattern="yyyy-MM-dd HH:mm"/>
+                                                </div>
+                                            </div>
+                                            <div class="order-status status-completed">
+                                                <c:choose>
+                                                    <c:when test="${latestOrder.status == 1}">已完成</c:when>
+                                                    <c:when test="${latestOrder.status == 0}">处理中</c:when>
+                                                    <c:otherwise>未知</c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                            <div class="order-amount">¥${latestOrder.totalAmount}</div>
+                                            <div class="order-action">
+                                                <a href="${pageContext.request.contextPath}/user/order/${latestOrder.id}" class="btn">订单详情</a>
+                                            </div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="no-orders">
+                                            <p>您还没有订单记录</p>
+                                            <a href="${pageContext.request.contextPath}/menu" class="btn btn-primary">去下单</a>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

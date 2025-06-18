@@ -9,4 +9,5 @@ public interface OrderDao {
     Order findOrderById(@Param("id") int id);
     List<Order> findOrdersByUserId(@Param("userId") int userId);
     void updateOrderStatus(@Param("id") int id, @Param("status") String status);
+    Order findLatestOrderByUserId(@Param("userId") int userId);
 } 

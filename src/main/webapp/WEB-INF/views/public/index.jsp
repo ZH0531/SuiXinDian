@@ -132,19 +132,47 @@
         .login-form button {
             width: 100%;
             padding: 12px;
-            background-color: var(--primary-color);
+            background: #FF6B35;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
         
         .login-form button:hover {
-            background-color: var(--primary-dark);
+            background-color: #E05A2A;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 53, 0.4);
+        }
+        
+        .login-form button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease-out, height 0.5s ease-out;
+            z-index: 1;
+        }
+        
+        .login-form button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .login-form button span {
+            position: relative;
+            z-index: 2;
         }
         
         .login-links {
@@ -580,11 +608,9 @@
                                     <label for="rememberMe" style="margin-bottom: 0;">记住我</label>
                                 </div>
                                 
-                                <input type="hidden" id="loginType" name="loginType" value="username">
+                                <input type="hidden" name="loginType" value="username" id="loginTypeInput">
                                 
-                                <button type="submit">
-                                    <i class="fas fa-sign-in-alt"></i> 登 录
-                                </button>
+                                <button type="submit"><span>登 录</span></button>
                             </form>
                             <div class="login-links">
                                 <a href="${pageContext.request.contextPath}/user/register">注册新账号</a>

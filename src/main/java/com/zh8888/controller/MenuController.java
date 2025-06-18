@@ -194,6 +194,132 @@ public class MenuController {
         return response;
     }
 
+    /**
+     * 管理员菜单页面
+     */
+    @GetMapping("/admin")
+    public String adminMenu(HttpSession session, Model model) {
+        // 检查用户登录状态及权限
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
+        
+        if (user.getRole() != 1) { // 不是管理员
+            return "redirect:/user/dashboard";
+        }
+
+        // 获取所有菜品
+        List<Menu> allMenus = menuService.getAllMenus();
+        model.addAttribute("menus", allMenus);
+        model.addAttribute("user", user);
+        
+        return "admin/menu";
+    }
+    
+    /**
+     * 添加新菜品
+     */
+    @PostMapping("/admin/add")
+    @ResponseBody
+    public Map<String, Object> addMenu(@RequestBody Menu menu, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        
+        // 检查用户登录状态及权限
+        User user = (User) session.getAttribute("user");
+        if (user == null || user.getRole() != 1) {
+            response.put("success", false);
+            response.put("message", "无权限操作");
+            return response;
+        }
+        
+        try {
+            // 生成新的菜品编号
+            String menuNo = "SXD" + String.format("%04d", (int)(Math.random() * 10000));
+            menu.setMenuNo(menuNo);
+            
+            boolean result = menuService.addMenu(menu);
+            if (result) {
+                response.put("success", true);
+                response.put("message", "添加菜品成功");
+            } else {
+                response.put("success", false);
+                response.put("message", "添加菜品失败");
+            }
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "添加菜品时发生错误：" + e.getMessage());
+        }
+        
+        return response;
+    }
+    
+    /**
+     * 更新菜品信息
+     */
+    @PostMapping("/admin/update")
+    @ResponseBody
+    public Map<String, Object> updateMenu(@RequestBody Menu menu, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        
+        // 检查用户登录状态及权限
+        User user = (User) session.getAttribute("user");
+        if (user == null || user.getRole() != 1) {
+            response.put("success", false);
+            response.put("message", "无权限操作");
+            return response;
+        }
+        
+        try {
+            boolean result = menuService.updateMenu(menu);
+            if (result) {
+                response.put("success", true);
+                response.put("message", "更新菜品成功");
+            } else {
+                response.put("success", false);
+                response.put("message", "更新菜品失败");
+            }
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "更新菜品时发生错误：" + e.getMessage());
+        }
+        
+        return response;
+    }
+    
+    /**
+     * 删除菜品
+     */
+    @DeleteMapping("/admin/delete/{id}")
+    @ResponseBody
+    public Map<String, Object> deleteMenu(@PathVariable Integer id, HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        
+        // 检查用户登录状态及权限
+        User user = (User) session.getAttribute("user");
+        if (user == null || user.getRole() != 1) {
+            response.put("success", false);
+            response.put("message", "无权限操作");
+            return response;
+        }
+        
+        try {
+            boolean result = menuService.deleteMenu(id);
+            if (result) {
+                response.put("success", true);
+                response.put("message", "删除菜品成功");
+            } else {
+                response.put("success", false);
+                response.put("message", "删除菜品失败");
+            }
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "删除菜品时发生错误：" + e.getMessage());
+        }
+        
+        return response;
+    }
+
 }
 
    

@@ -27,4 +27,6 @@ public interface OrderService {
      * @return a list of orders
      */
     List<Order> getOrdersByUserId(int userId);
-} 
+
+    Order getLatestOrderByUserId(int userId);
+}

@@ -2,6 +2,8 @@ package com.zh8888.controller;
 
 import com.zh8888.model.User;
 import com.zh8888.service.UserService;
+import com.zh8888.service.OrderService;
+import com.zh8888.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
 
     /**
      * 跳转到登录页面
@@ -305,6 +310,10 @@ public class UserController {
         model.addAttribute("pageTitle", "用户中心 - 随心点");
         model.addAttribute("pageDescription", "欢迎回到您的个人中心");
         model.addAttribute("pageType", "user");
+        
+        // 获取最近一条订单
+        Order latestOrder = orderService.getLatestOrderByUserId(user.getId());
+        model.addAttribute("latestOrder", latestOrder);
         
         return "user/dashboard";
     }
