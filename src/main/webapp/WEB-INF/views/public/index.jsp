@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -113,6 +113,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
+            color: #4a5568; /* 舒服的深灰色 */
         }
         
         .login-form input {
@@ -199,6 +200,12 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
         
         .nav-list {
@@ -235,27 +242,99 @@
         /* 登录选项卡 */
         .login-options {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            height: auto;
+            position: relative;
+        }
+        
+        .login-slider {
+            display: none; /* 移除滑块 */
         }
         
         .login-option {
             flex: 1;
             text-align: center;
-            padding: 8px;
-            border-radius: 5px;
+            padding: 14px 16px;
             cursor: pointer;
             transition: all 0.3s ease;
+            color: #666;
+            font-weight: 500;
+            font-size: 14px;
+            background: #ffffff;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transform: scale(1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
-        .login-option.active {
-            background-color: rgba(255, 107, 53, 0.2);
-            font-weight: bold;
+        .login-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 107, 53, 0.05), rgba(255, 107, 53, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
         }
         
         .login-option:hover {
-            background-color: rgba(255, 107, 53, 0.1);
+            color: #333;
+            border-color: #FF6B35;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+            background: #fefefe;
+        }
+        
+        .login-option:hover::before {
+            opacity: 1;
+        }
+        
+        .login-option.active {
+            color: #FF6B35;
+            background: #fff8f6;
+            border-color: #FF6B35;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.2);
+            font-weight: 600;
+        }
+        
+        .login-option.active::before {
+            opacity: 0;
+        }
+        
+        .login-option span {
+            position: relative;
+            z-index: 2;
+            transition: transform 0.2s ease;
+        }
+        
+        .login-option:active span {
+            transform: scale(0.98);
+        }
+        
+        /* 移除过度动画，保持简约 */
+        .login-option.clicked {
+            transform: translateY(-1px) scale(0.98);
+            transition: transform 0.15s ease;
+        }
+        
+        /* 修改表单标签图标颜色 */
+        .login-form label i {
+            color: #FF6B35;
+            margin-right: 8px;
         }
         
         /* 页脚样式 */
@@ -586,17 +665,23 @@
                                 <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
                             </div>
                             
-                            <!-- 登录选项卡 -->
+                            <!-- 登录选项按钮 -->
                             <div class="login-options">
-                                <div class="login-option active" data-type="username">用户名</div>
-                                <div class="login-option" data-type="phone">手机号</div>
-                                <div class="login-option" data-type="email">邮箱</div>
+                                <button type="button" class="login-option active" data-type="user_id">
+                                    <span>用户ID</span>
+                                </button>
+                                <button type="button" class="login-option" data-type="phone">
+                                    <span>手机号</span>
+                                </button>
+                                <button type="button" class="login-option" data-type="email">
+                                    <span>邮箱</span>
+                                </button>
                             </div>
                             
                             <form action="${pageContext.request.contextPath}/user/login" method="post" class="login-form">
                                 <div class="form-group" id="username-group">
-                                    <label for="username"><i class="fas fa-user"></i> <span id="login-label">用户名</span></label>
-                                    <input type="text" id="username" name="username" placeholder="请输入用户名/手机号/邮箱" required>
+                                    <label for="username"><i class="fas fa-user"></i> <span id="login-label">用户ID</span></label>
+                                    <input type="text" id="username" name="username" placeholder="请输入用户ID" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password"><i class="fas fa-lock"></i> 密码</label>
@@ -608,7 +693,7 @@
                                     <label for="rememberMe" style="margin-bottom: 0;">记住我</label>
                                 </div>
                                 
-                                <input type="hidden" name="loginType" value="username" id="loginTypeInput">
+                                <input type="hidden" name="loginType" value="user_id" id="loginTypeInput">
                                 
                                 <button type="submit"><span>登 录</span></button>
                             </form>
@@ -676,13 +761,23 @@
             // 登录选项卡切换
             const loginOptions = document.querySelectorAll('.login-option');
             const loginLabel = document.getElementById('login-label');
-            const loginType = document.getElementById('loginType');
+            const loginTypeInput = document.getElementById('loginTypeInput');
             const usernameInput = document.getElementById('username');
             const errorMsg = document.getElementById('errorMsg');
+            console.log('Login options:', loginOptions.length);
             
             if (loginOptions.length > 0) {
-                loginOptions.forEach(option => {
+                loginOptions.forEach((option, index) => {
                     option.addEventListener('click', function() {
+                        console.log('Clicked option index:', index);
+                        console.log('Option type:', this.getAttribute('data-type'));
+                        
+                        // 添加点击动画
+                        this.classList.add('clicked');
+                        setTimeout(() => {
+                            this.classList.remove('clicked');
+                        }, 300);
+                        
                         // 移除所有active状态
                         loginOptions.forEach(opt => {
                             opt.classList.remove('active');
@@ -698,21 +793,29 @@
                         
                         // 更新登录类型和标签
                         const type = this.getAttribute('data-type');
-                        loginType.value = type;
+                        loginTypeInput.value = type;
                         
                         switch(type) {
                             case 'phone':
                                 loginLabel.textContent = '手机号';
                                 usernameInput.placeholder = '请输入手机号';
+                                usernameInput.setAttribute('pattern', '[0-9]{11}');
+                                usernameInput.setAttribute('inputmode', 'numeric');
                                 break;
                             case 'email':
                                 loginLabel.textContent = '邮箱';
                                 usernameInput.placeholder = '请输入邮箱地址';
+                                usernameInput.setAttribute('type', 'email');
+                                usernameInput.removeAttribute('pattern');
+                                usernameInput.removeAttribute('inputmode');
                                 break;
-                            case 'username':
+                            case 'user_id':
                             default:
-                                loginLabel.textContent = '用户名';
-                                usernameInput.placeholder = '请输入用户名/手机号/邮箱';
+                                loginLabel.textContent = '用户ID';
+                                usernameInput.placeholder = '请输入用户ID';
+                                usernameInput.setAttribute('type', 'text');
+                                usernameInput.removeAttribute('pattern');
+                                usernameInput.removeAttribute('inputmode');
                                 break;
                         }
                     });
@@ -725,12 +828,33 @@
                 loginForm.addEventListener('submit', function(e) {
                     const username = document.getElementById('username').value.trim();
                     const password = document.getElementById('password').value;
-                    const loginType = document.getElementById('loginType').value;
+                    const loginType = document.getElementById('loginTypeInput').value;
                     
                     if (username === '') {
                         e.preventDefault();
-                        showError('请输入' + (loginType === 'phone' ? '手机号' : (loginType === 'email' ? '邮箱' : '用户名')));
+                        showError('请输入' + (loginType === 'phone' ? '手机号' : (loginType === 'email' ? '邮箱' : '用户ID')));
                         return false;
+                    }
+                    
+                    // 根据登录类型进行特定验证
+                    if (loginType === 'phone') {
+                        if (!/^1\d{10}$/.test(username)) {
+                            e.preventDefault();
+                            showError('请输入正确的手机号格式');
+                            return false;
+                        }
+                    } else if (loginType === 'email') {
+                        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
+                            e.preventDefault();
+                            showError('请输入正确的邮箱格式');
+                            return false;
+                        }
+                    } else if (loginType === 'user_id') {
+                        if (username.length < 3) {
+                            e.preventDefault();
+                            showError('用户ID长度不能少于3位');
+                            return false;
+                        }
                     }
                     
                     if (password === '') {

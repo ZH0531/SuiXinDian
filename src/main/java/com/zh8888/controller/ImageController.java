@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,78 +23,69 @@ import java.util.UUID;
 public class ImageController {
 
     /**
-     * 上传菜品图片
+     * 上传图片
+     * @param image 图片文件
+     * @param request HTTP请求
+     * @return 上传结果
      */
     @PostMapping("/upload")
     @ResponseBody
-    public Map<String, Object> uploadImage(@RequestParam("file") MultipartFile file, 
-                                         HttpServletRequest request, 
-                                         HttpSession session) {
-        Map<String, Object> response = new HashMap<>();
-        
-        // 检查管理员权限
-        User user = (User) session.getAttribute("user");
-        if (user == null || user.getRole() != 1) {
-            response.put("success", false);
-            response.put("message", "权限不足，只有管理员可以上传图片");
-            return response;
-        }
+    public Map<String, Object> upload(@RequestParam("image") MultipartFile image, HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<>();
         
         // 检查文件是否为空
-        if (file.isEmpty()) {
-            response.put("success", false);
-            response.put("message", "请选择要上传的图片文件");
-            return response;
+        if (image.isEmpty()) {
+            result.put("success", false);
+            result.put("message", "请选择图片");
+            return result;
+        }
+        
+        // 检查文件类型
+        String contentType = image.getContentType();
+        if (contentType == null || !contentType.startsWith("image/")) {
+            result.put("success", false);
+            result.put("message", "只支持图片文件");
+            return result;
         }
         
         try {
-            // 检查文件类型
-            String originalFilename = file.getOriginalFilename();
-            if (originalFilename == null || !isImageFile(originalFilename)) {
-                response.put("success", false);
-                response.put("message", "只支持 JPG、JPEG、PNG、GIF 格式的图片");
-                return response;
+            // 获取文件后缀
+            String originalFilename = image.getOriginalFilename();
+            String suffix = "";
+            if (originalFilename != null && originalFilename.contains(".")) {
+                suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
             }
             
-            // 检查文件大小（限制为5MB）
-            if (file.getSize() > 5 * 1024 * 1024) {
-                response.put("success", false);
-                response.put("message", "图片文件大小不能超过5MB");
-                return response;
-            }
+            // 生成新文件名
+            String newFilename = UUID.randomUUID().toString().replace("-", "") + suffix;
             
-            // 获取文件扩展名
-            String fileExtension = getFileExtension(originalFilename);
+            // 按日期创建目录
+            String datePath = new SimpleDateFormat("yyyyMMdd").format(new Date());
             
-            // 生成唯一文件名
-            String fileName = UUID.randomUUID().toString() + "." + fileExtension;
-            
-            // 构建上传目录路径
-            String uploadDir = request.getServletContext().getRealPath("/static/images/dishes/");
-            File uploadDirFile = new File(uploadDir);
-            if (!uploadDirFile.exists()) {
-                uploadDirFile.mkdirs();
+            // 获取上传目录的真实路径
+            String uploadDir = request.getServletContext().getRealPath("/static/images/dishes/") + datePath;
+            File dir = new File(uploadDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
             }
             
             // 保存文件
-            File destFile = new File(uploadDir + fileName);
-            file.transferTo(destFile);
+            File destFile = new File(uploadDir + File.separator + newFilename);
+            image.transferTo(destFile);
             
-            // 返回图片URL
-            String imageUrl = "/static/images/dishes/" + fileName;
+            // 返回文件访问路径
+            String filePath = "/static/images/dishes/" + datePath + "/" + newFilename;
             
-            response.put("success", true);
-            response.put("message", "图片上传成功");
-            response.put("imageUrl", imageUrl);
-            response.put("fileName", fileName);
-            
+            result.put("success", true);
+            result.put("path", filePath);
+            result.put("message", "上传成功");
         } catch (IOException e) {
             e.printStackTrace();
-            response.put("success", false);
-            response.put("message", "图片上传失败：" + e.getMessage());
+            result.put("success", false);
+            result.put("message", "上传失败：" + e.getMessage());
         }
         
-        return response;
+        return result;
     }
     
     /**

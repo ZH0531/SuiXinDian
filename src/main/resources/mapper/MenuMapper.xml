@@ -124,4 +124,18 @@
         DELETE FROM menu WHERE id = #{id}
     </delete>
     
+    <!-- 根据前缀获取最后一个菜品编号 -->
+    <select id="getLastMenuNoByPrefix" resultType="java.lang.String" parameterType="java.lang.String">
+        SELECT menu_no
+        FROM menu
+        WHERE menu_no LIKE CONCAT(#{prefix}, '%')
+        ORDER BY 
+            CASE 
+                WHEN menu_no REGEXP CONCAT('^', #{prefix}, '[0-9]+$') THEN 1 
+                ELSE 2 
+            END,
+            CAST(SUBSTRING(menu_no, LENGTH(#{prefix}) + 1) AS UNSIGNED) DESC
+        LIMIT 1
+    </select>
+    
 </mapper> 

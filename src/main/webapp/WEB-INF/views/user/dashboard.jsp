@@ -440,31 +440,31 @@
                     
                     <ul class="menu">
                         <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link active" onclick="showContent('welcome')">
+                            <a href="${pageContext.request.contextPath}/user/dashboard" class="menu-link active" id="dashboard-link">
                                 <span class="menu-icon"><i class="fas fa-tachometer-alt"></i></span>
                                 控制面板
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="${pageContext.request.contextPath}/user/orders" class="menu-link">
+                            <a href="${pageContext.request.contextPath}/user/orders" class="menu-link" id="orders-link">
                                 <span class="menu-icon"><i class="fas fa-clipboard-list"></i></span>
                                 我的订单
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link" onclick="showNotSupported('我的收藏')">
+                            <a href="javascript:void(0);" class="menu-link" id="favorites-link" onclick="showNotSupported('我的收藏')">
                                 <span class="menu-icon"><i class="fas fa-heart"></i></span>
                                 我的收藏
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link" onclick="showContent('profile')">
+                            <a href="javascript:void(0);" class="menu-link" id="profile-link" onclick="showContent('profile')">
                                 <span class="menu-icon"><i class="fas fa-user-cog"></i></span>
                                 个人资料
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link" onclick="showNotSupported('收货地址')">
+                            <a href="javascript:void(0);" class="menu-link" id="address-link" onclick="showNotSupported('收货地址')">
                                 <span class="menu-icon"><i class="fas fa-map-marker-alt"></i></span>
                                 收货地址
                             </a>
@@ -556,11 +556,29 @@
     <!-- 页面底部 -->
     <footer class="main-footer">
         <div class="footer-bottom">
-            <p>&copy; 2023 随心点餐厅. 保留所有权利.</p>
+            <p>&copy; 2025 随心点餐厅-保留所有权利</p>
         </div>
     </footer>
 
     <script>
+        // 页面加载时确保控制面板高亮
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard page loaded, setting active menu item');
+            
+            // 移除所有菜单项的active类
+            const menuLinks = document.querySelectorAll('.menu-link');
+            menuLinks.forEach(link => link.classList.remove('active'));
+            
+            // 确保控制面板高亮
+            const dashboardLink = document.getElementById('dashboard-link');
+            if (dashboardLink) {
+                dashboardLink.classList.add('active');
+                console.log('Dashboard link set to active');
+            } else {
+                console.error('Dashboard link not found!');
+            }
+        });
+        
         function showContent(type) {
             console.log('showContent called with type:', type);
             const contentArea = document.getElementById('contentArea');
@@ -581,18 +599,55 @@
                     contentArea.innerHTML = welcomeContent.outerHTML;
                 }
                 // 添加active类到控制面板
-                const welcomeLink = document.querySelector('a[onclick*="welcome"]');
-                if (welcomeLink) {
-                    welcomeLink.classList.add('active');
+                const dashboardLink = document.getElementById('dashboard-link');
+                if (dashboardLink) {
+                    dashboardLink.classList.add('active');
                 }
             } else if (type === 'profile') {
                 // 加载个人资料内容
                 loadProfileContent();
                 // 添加active类到个人资料
-                const profileLink = document.querySelector('a[onclick*="profile"]');
+                const profileLink = document.getElementById('profile-link');
                 if (profileLink) {
                     profileLink.classList.add('active');
                 }
+            }
+        }
+        
+        // 修改showNotSupported函数，确保正确处理菜单高亮
+        function showNotSupported(feature) {
+            console.log('showNotSupported called for:', feature);
+            
+            // 移除所有菜单项的active类
+            const menuLinks = document.querySelectorAll('.menu-link');
+            menuLinks.forEach(link => link.classList.remove('active'));
+            
+            // 根据功能名称高亮对应菜单项
+            if (feature === '我的收藏') {
+                const favoritesLink = document.getElementById('favorites-link');
+                if (favoritesLink) {
+                    favoritesLink.classList.add('active');
+                }
+            } else if (feature === '收货地址') {
+                const addressLink = document.getElementById('address-link');
+                if (addressLink) {
+                    addressLink.classList.add('active');
+                }
+            }
+            
+            // 显示未支持的功能提示
+            const contentArea = document.getElementById('contentArea');
+            if (contentArea) {
+                contentArea.innerHTML = `
+                    <div style="text-align: center; padding: 80px 20px; color: #666;">
+                        <i class="fas fa-construction" style="font-size: 64px; color: #FF6B35; margin-bottom: 20px;"></i>
+                        <h2 style="margin-bottom: 15px; color: #333;">${feature}功能</h2>
+                        <p style="font-size: 16px; margin-bottom: 30px;">该功能正在开发中，敬请期待！</p>
+                        <button onclick="showContent('welcome')" style="background: #FF6B35; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                            <i class="fas fa-arrow-left"></i> 返回控制面板
+                        </button>
+                    </div>
+                `;
             }
         }
         

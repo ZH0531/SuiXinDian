@@ -96,10 +96,32 @@
         
         .btn-primary {
             background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .btn-primary:hover {
             background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary i {
+            margin-right: 6px;
+            color: white;
         }
         
         .btn-danger {
@@ -366,12 +388,119 @@
             resize: vertical;
         }
         
+        /* 图片上传样式 */
+        .image-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border: 1px dashed #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .upload-btn {
+            padding: 6px 12px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .upload-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        #imageUpload {
+            display: none;
+        }
+        
         /* 图片路径单元格样式 */
         .image-path {
             max-width: 200px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+        
+        /* 导航栏样式 */
+        .admin-header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .admin-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-nav .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-nav .logo i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .admin-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .admin-nav ul li {
+            margin-left: 5px;
+        }
+        
+        .admin-nav ul li a {
+            color: #ddd;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-nav ul li a i {
+            margin-right: 8px;
+        }
+        
+        .admin-nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
+        .admin-nav ul li a.active {
+            background-color: white;
+            color: #333;
+            font-weight: 500;
         }
     </style>
 </head>
@@ -384,7 +513,8 @@
                 </a>
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-tachometer-alt"></i> 仪表盘</a></li>
-                    <li><a href="${pageContext.request.contextPath}/menu/admin"><i class="fas fa-book-open"></i> 菜品管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/menu/admin" class="active"><i class="fas fa-book-open"></i> 菜品管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users"></i> 用户管理</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/logout"><i class="fas fa-sign-out-alt"></i> 退出</a></li>
                 </ul>
             </div>
@@ -418,12 +548,12 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>编号</th>
+                            <th>数据库ID</th>
+                            <th>菜品ID</th>
                             <th>菜品名称</th>
                             <th>价格</th>
                             <th>分类</th>
-                            <th>图片路径</th>
+                            <th>图片路径（点击编辑预览）</th>
                             <th>操作</th>
                         </tr>
                     </thead>
@@ -494,8 +624,22 @@
                                 <input type="text" id="menuTags" placeholder="例如：辣 招牌">
                             </div>
                             <div class="form-group">
-                                <label for="menuImage">图片路径</label>
-                                <input type="text" id="menuImage" placeholder="/static/images/dishes/default.jpg">
+                                <label for="menuImage">图片</label>
+                                <div class="image-upload-container">
+                                    <div class="image-preview" id="imagePreview">
+                                        <img src="/static/images/dishes/default.jpg" alt="预览" id="previewImg">
+                                    </div>
+                                    <div>
+                                        <label for="imageUpload" class="upload-btn">
+                                            <i class="fas fa-upload"></i> 上传图片
+                                        </label>
+                                        <input type="file" id="imageUpload" accept="image/*">
+                                        <input type="hidden" id="menuImage" value="/static/images/dishes/default.jpg">
+                                        <div style="margin-top: 5px; font-size: 12px; color: #666;">
+                                            支持 JPG, PNG 格式
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="menuDesc">描述</label>
@@ -531,7 +675,7 @@
 
     <footer>
         <div class="container">
-            <p>© 2023 随心点 | 后台管理系统</p>
+            <p>© 2025 随心点 | 后台管理系统</p>
         </div>
     </footer>
 
@@ -614,12 +758,15 @@
                                 
                                 // 设置其他标签
                                 const mainCategories = ['热菜', '凉菜', '汤类', '主食', '饮品'];
-                                const tagsArray = menu.tags.split(/\s+/);
-                                const otherTags = tagsArray.filter(tag => !mainCategories.includes(tag));
+                                const tagsArray = menu.tags.split(/[,\s]+/).filter(tag => tag.trim() !== '');
+                                const otherTags = tagsArray.filter(tag => !mainCategories.includes(tag.trim()));
                                 document.getElementById('menuTags').value = otherTags.join(' ');
                                 
                                 document.getElementById('menuImage').value = menu.imageUrl || '';
                                 document.getElementById('menuDesc').value = menu.description || '';
+                                
+                                // 加载图片预览
+                                loadImagePreview(menu.imageUrl);
                                 
                                 document.getElementById('modalTitle').textContent = '编辑菜品';
                                 menuModal.style.display = 'block';
@@ -640,33 +787,6 @@
                     const btn = e.target.classList.contains('delete-btn') ? e.target : e.target.parentElement;
                     currentMenuId = btn.dataset.id;
                     deleteModal.style.display = 'block';
-                }
-            });
-            
-            // 确认删除按钮点击事件
-            deleteConfirmBtn.addEventListener('click', function() {
-                if (currentMenuId) {
-                    fetch('${pageContext.request.contextPath}/menu/admin/delete/' + currentMenuId, {
-                        method: 'DELETE'
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // 删除成功，移除表格中的对应行
-                            const row = document.querySelector(`tr[data-id="${currentMenuId}"]`);
-                            if (row) {
-                                row.remove();
-                            }
-                            alert('删除成功');
-                            deleteModal.style.display = 'none';
-                        } else {
-                            alert('删除失败：' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('删除菜品出错：', error);
-                        alert('删除失败，请重试');
-                    });
                 }
             });
             
@@ -753,6 +873,81 @@
                     closeModal(deleteModal);
                 }
             });
+            
+            // 确认删除按钮点击事件
+            deleteConfirmBtn.addEventListener('click', function() {
+                if (currentMenuId) {
+                    fetch('${pageContext.request.contextPath}/menu/admin/delete/' + currentMenuId, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // 删除成功，刷新页面
+                            alert('删除成功');
+                            deleteModal.style.display = 'none';
+                            location.reload();
+                        } else {
+                            alert('删除失败：' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('删除菜品出错：', error);
+                        alert('删除失败，请重试');
+                    });
+                }
+            });
+
+            // 图片上传预览
+            document.getElementById('imageUpload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // 检查文件类型
+                    if (!file.type.match('image.*')) {
+                        alert('请选择图片文件');
+                        return;
+                    }
+                    
+                    // 创建FormData对象
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    
+                    // 显示预览
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('previewImg').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // 上传图片到服务器
+                    fetch('${pageContext.request.contextPath}/image/upload', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // 设置图片路径
+                            document.getElementById('menuImage').value = data.path;
+                        } else {
+                            alert('上传失败：' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('上传图片出错：', error);
+                        alert('上传失败，请重试');
+                    });
+                }
+            });
+            
+            // 编辑菜品时加载图片预览
+            function loadImagePreview(url) {
+                if (url) {
+                    document.getElementById('previewImg').src = url;
+                } else {
+                    document.getElementById('previewImg').src = '/static/images/dishes/default.jpg';
+                }
+            }
         });
     </script>
 </body>

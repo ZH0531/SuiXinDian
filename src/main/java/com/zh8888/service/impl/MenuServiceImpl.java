@@ -177,4 +177,21 @@ public class MenuServiceImpl implements MenuService {
         }
         return menuDao.getMenuByNo(menuNo.trim()) != null;
     }
+
+    @Override
+    public int getNextMenuNumber(String prefix) {
+        String lastMenuNo = menuDao.getLastMenuNoByPrefix(prefix);
+        if (lastMenuNo == null) {
+            return 1; // 如果没有找到任何菜品，从1开始
+        }
+        
+        try {
+            // 提取编号部分（去掉前缀）
+            String numberPart = lastMenuNo.substring(prefix.length());
+            int lastNumber = Integer.parseInt(numberPart);
+            return lastNumber + 1;
+        } catch (Exception e) {
+            return 1; // 解析失败时从1开始
+        }
+    }
 } 

@@ -565,10 +565,10 @@
                                 <i class="fas fa-leaf"></i> 凉菜
                             </button>
                             <button class="category-btn" data-category="汤类">
-                                <i class="fas fa-soup"></i> 汤类
+                                <i class="fas fa-tint"></i> 汤类
                             </button>
                             <button class="category-btn" data-category="主食">
-                                <i class="fas fa-bowl-rice"></i> 主食
+                                <i class="fas fa-bread-slice"></i> 主食
                             </button>
                             <button class="category-btn" data-category="饮品">
                                 <i class="fas fa-coffee"></i> 饮品
@@ -612,8 +612,10 @@
                                                     </p>
                                                     <c:if test="${not empty menu.tags}">
                                                         <div class="dish-tags">
-                                                            <c:forTokens items="${menu.tags}" delims="," var="tag">
-                                                                <span class="tag">${tag}</span>
+                                                            <c:forTokens items="${menu.tags}" delims=", " var="tag">
+                                                                <c:if test="${not empty tag.trim()}">
+                                                                    <span class="tag">${tag.trim()}</span>
+                                                                </c:if>
                                                             </c:forTokens>
                                                         </div>
                                                     </c:if>

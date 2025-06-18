@@ -95,4 +95,11 @@ public interface MenuService {
      * @return 存在返回true，不存在返回false
      */
     boolean isMenuNoExist(String menuNo);
+    
+    /**
+     * 获取指定前缀的下一个编号
+     * @param prefix 编号前缀
+     * @return 下一个编号
+     */
+    int getNextMenuNumber(String prefix);
 } 

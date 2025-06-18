@@ -151,16 +151,9 @@ public class UserController {
                 case "email":
                     user = userService.findByEmail(username);
                     break;
-                case "username":
+                case "user_id":
                 default:
-                    // 尝试使用用户ID/手机号/邮箱登录
                     user = userService.findByUserId(username);
-                    if (user == null) {
-                        user = userService.findByPhone(username);
-                    }
-                    if (user == null) {
-                        user = userService.findByEmail(username);
-                    }
                     break;
             }
 
@@ -291,6 +284,7 @@ public class UserController {
         model.addAttribute("pageTitle", "个人资料 - 随心点");
         model.addAttribute("pageDescription", "管理您的个人信息");
         model.addAttribute("pageType", "user");
+        model.addAttribute("currentPage", "profile"); // 添加当前页面标识
         
         // 已登录，展示个人资料页面
         return "user/profile";
@@ -310,6 +304,7 @@ public class UserController {
         model.addAttribute("pageTitle", "用户中心 - 随心点");
         model.addAttribute("pageDescription", "欢迎回到您的个人中心");
         model.addAttribute("pageType", "user");
+        model.addAttribute("currentPage", "dashboard"); // 添加当前页面标识
         
         // 获取最近一条订单
         Order latestOrder = orderService.getLatestOrderByUserId(user.getId());

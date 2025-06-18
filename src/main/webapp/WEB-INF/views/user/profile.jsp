@@ -148,9 +148,9 @@
 .info-card {
     background: white;
     border: 1px solid #eee;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
 }
 
@@ -163,19 +163,24 @@
     background-color: #f8f9fa;
     padding: 15px 20px;
     border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .info-card-header h3 {
     margin: 0;
     font-size: 16px;
+    font-weight: 600;
     color: #333;
     display: flex;
     align-items: center;
 }
 
 .info-card-header i {
-    margin-right: 8px;
+    margin-right: 10px;
     color: #FF6B35;
+    font-size: 18px;
 }
 
 .info-card-body {
@@ -501,24 +506,34 @@
 }
 
 .alert {
-    padding: 12px 16px;
-    border-radius: 4px;
-    margin-bottom: 20px;
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    animation: fadeIn 0.3s ease;
+}
+
+.alert i {
+    margin-right: 10px;
+    font-size: 16px;
 }
 
 .alert-success {
     background-color: #d4edda;
-    border: 1px solid #c3e6cb;
     color: #155724;
+    border: 1px solid #c3e6cb;
 }
 
-.alert-error {
+.alert-danger {
     background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
     color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* 响应式设计 */
@@ -560,7 +575,7 @@
 // 全局变量
 var currentField = '';
 
-// 直接定义为全局函数
+// 全局函数
 function editField(field) {
     try {
         console.log('editField called with:', field); 

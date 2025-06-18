@@ -235,7 +235,7 @@ public class MenuController {
         
         try {
             // 生成新的菜品编号
-            String menuNo = "SXD" + String.format("%04d", (int)(Math.random() * 10000));
+            String menuNo = generateMenuNo(menu.getTags());
             menu.setMenuNo(menuNo);
             
             boolean result = menuService.addMenu(menu);
@@ -252,6 +252,32 @@ public class MenuController {
         }
         
         return response;
+    }
+    
+    /**
+     * 根据菜品分类生成编号
+     */
+    private String generateMenuNo(String tags) {
+        String prefix = "M"; // 默认前缀
+        
+        if (tags != null) {
+            if (tags.contains("热菜")) {
+                prefix = "H"; // 热菜 - Hot
+            } else if (tags.contains("凉菜")) {
+                prefix = "L"; // 凉菜 - Liang
+            } else if (tags.contains("汤类")) {
+                prefix = "T"; // 汤类 - Tang
+            } else if (tags.contains("主食")) {
+                prefix = "M"; // 主食 - Main
+            } else if (tags.contains("饮品")) {
+                prefix = "D"; // 饮品 - Drink
+            }
+        }
+        
+        // 获取该分类下的最大编号
+        int nextNumber = menuService.getNextMenuNumber(prefix);
+        
+        return prefix + String.format("%03d", nextNumber);
     }
     
     /**

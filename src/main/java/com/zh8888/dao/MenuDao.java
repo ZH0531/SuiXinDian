@@ -92,4 +92,11 @@ public interface MenuDao {
      * @return 受影响的行数
      */
     int deleteMenu(Integer id);
+    
+    /**
+     * 根据前缀获取最后一个菜品编号
+     * @param prefix 编号前缀
+     * @return 最后一个菜品编号
+     */
+    String getLastMenuNoByPrefix(String prefix);
 } 

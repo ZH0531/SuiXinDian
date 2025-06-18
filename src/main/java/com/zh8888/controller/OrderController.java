@@ -72,6 +72,10 @@ public class OrderController {
         model.addAttribute("order", order);
         model.addAttribute("user", currentUser);
         model.addAttribute("isLoggedIn", true);
+        model.addAttribute("pageTitle", "订单详情 - 随心点");
+        model.addAttribute("pageDescription", "查看订单详细信息");
+        model.addAttribute("pageType", "user");
+        model.addAttribute("currentPage", "orders");
         
         return "user/order-details";
     }
@@ -90,6 +94,10 @@ public class OrderController {
         model.addAttribute("orders", orders);
         model.addAttribute("user", currentUser);
         model.addAttribute("isLoggedIn", true);
+        model.addAttribute("pageTitle", "我的订单 - 随心点");
+        model.addAttribute("pageDescription", "查看您的所有订单");
+        model.addAttribute("pageType", "user");
+        model.addAttribute("currentPage", "orders");
         
         return "user/order-list";
     }

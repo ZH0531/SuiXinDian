@@ -285,6 +285,11 @@
             text-align: center;
             margin-top: 40px;
         }
+        .admin-nav ul li a.active {
+            background-color: white;
+            color: #333;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -328,8 +333,8 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>用户编号</th>
+                            <th>数据库ID</th>
+                            <th>用户ID</th>
                             <th>用户名</th>
                             <th>手机号</th>
                             <th>邮箱</th>
@@ -534,13 +539,10 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            // 删除成功，移除表格中的对应行
-                            const row = document.querySelector(`tr[data-id="${currentUserId}"]`);
-                            if (row) {
-                                row.remove();
-                            }
+                            // 删除成功，刷新页面
                             alert('删除成功');
                             deleteModal.style.display = 'none';
+                            location.reload();
                         } else {
                             alert('删除失败：' + data.message);
                         }
