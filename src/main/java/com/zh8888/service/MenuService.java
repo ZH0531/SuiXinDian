@@ -102,4 +102,10 @@ public interface MenuService {
      * @return 下一个编号
      */
     int getNextMenuNumber(String prefix);
+    
+    /**
+     * 获取菜品总数
+     * @return 菜品总数
+     */
+    int getMenuCount();
 } 

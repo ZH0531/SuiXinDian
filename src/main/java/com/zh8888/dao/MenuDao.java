@@ -99,4 +99,10 @@ public interface MenuDao {
      * @return 最后一个菜品编号
      */
     String getLastMenuNoByPrefix(String prefix);
+    
+    /**
+     * 获取菜品总数
+     * @return 菜品总数
+     */
+    int getMenuCount();
 } 

@@ -100,15 +100,34 @@
             margin-bottom: 1rem;
             color: #ddd;
         }
-        .empty-message a {
-            color: var(--primary-color);
+        .empty-message p {
+            margin-bottom: 1.5rem;
+        }
+        .order-btn {
+            display: inline-block;
+            background: #FF6B35;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 500;
-            margin-top: 0.5rem;
-            display: inline-block;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-        .empty-message a:hover {
-            text-decoration: underline;
+        .order-btn:hover {
+            background: #E05A2A;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+        .order-btn i {
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-left: 0.4rem;
+            color: white;
         }
     </style>
 </head>
@@ -181,7 +200,9 @@
             <div class="empty-message">
                 <i class="fas fa-shopping-bag"></i>
                 <p>您还没有任何订单</p>
-                <a href="${pageContext.request.contextPath}/menu">去点餐 <i class="fas fa-arrow-right"></i></a>
+                <a href="${pageContext.request.contextPath}/menu" class="order-btn">
+                    去点餐 <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </c:when>
         <c:otherwise>

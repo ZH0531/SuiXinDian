@@ -138,4 +138,9 @@
         LIMIT 1
     </select>
     
+    <!-- 获取菜品总数 -->
+    <select id="getMenuCount" resultType="int">
+        SELECT COUNT(*) FROM menu
+    </select>
+    
 </mapper> 

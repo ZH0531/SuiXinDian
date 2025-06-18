@@ -268,6 +268,24 @@
             background-color: white;
         }
         
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
         .contact-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -275,16 +293,26 @@
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
+            align-items: stretch;
         }
         
         .contact-info {
-            padding: 20px;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .contact-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .contact-item:last-child {
+            margin-bottom: 0;
         }
         
         .contact-icon {
@@ -637,7 +665,7 @@
                     </div>
                     <div class="contact-details">
                         <h3>地址</h3>
-                        <p>中国上海市闵行区莘庄工业区春东路508号</p>
+                        <p>武汉信息传播职业技术学院-3302工作室</p>
                     </div>
                 </div>
                 
@@ -702,7 +730,7 @@
     
     <footer>
         <div class="container">
-            <p>© 2023 随心点 | 让用户随时随地，想点就点！</p>
+            <p>© 2025 随心点 | 让用户随时随地，想点就点！</p>
         </div>
     </footer>
 </body>

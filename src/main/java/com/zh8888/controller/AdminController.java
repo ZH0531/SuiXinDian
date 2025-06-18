@@ -2,12 +2,15 @@ package com.zh8888.controller;
 
 import com.zh8888.model.User;
 import com.zh8888.service.UserService;
+import com.zh8888.service.OrderService;
+import com.zh8888.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +24,12 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private OrderService orderService;
+    
+    @Autowired
+    private MenuService menuService;
 
     /**
      * 管理员仪表盘
@@ -39,6 +48,17 @@ public class AdminController {
         
         // 传递用户信息到视图
         model.addAttribute("user", user);
+        
+        // 获取统计数据
+        int userCount = userService.getUserCount();
+        int menuCount = menuService.getMenuCount();
+        int todayOrderCount = orderService.getTodayOrderCount();
+        BigDecimal todayIncome = orderService.getTodayIncome();
+        
+        model.addAttribute("userCount", userCount);
+        model.addAttribute("menuCount", menuCount);
+        model.addAttribute("todayOrderCount", todayOrderCount);
+        model.addAttribute("todayIncome", todayIncome != null ? todayIncome : BigDecimal.ZERO);
         
         return "admin/dashboard";
     }

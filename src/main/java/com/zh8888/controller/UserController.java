@@ -310,6 +310,10 @@ public class UserController {
         Order latestOrder = orderService.getLatestOrderByUserId(user.getId());
         model.addAttribute("latestOrder", latestOrder);
         
+        // 获取用户订单总数
+        int orderCount = orderService.getOrderCountByUserId(user.getId());
+        model.addAttribute("orderCount", orderCount);
+        
         return "user/dashboard";
     }
     

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -228,6 +229,7 @@
                     <li><a href="${pageContext.request.contextPath}/admin/dashboard" class="active"><i class="fas fa-tachometer-alt"></i> 仪表盘</a></li>
                     <li><a href="${pageContext.request.contextPath}/menu/admin"><i class="fas fa-book-open"></i> 菜品管理</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users"></i> 用户管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/debug"><i class="fas fa-bug"></i> 系统调试</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/logout"><i class="fas fa-sign-out-alt"></i> 退出</a></li>
                 </ul>
             </div>
@@ -254,7 +256,7 @@
                         <i class="fas fa-users"></i> 用户统计
                     </div>
                     <div class="card-body">
-                        <div class="stats-value">256</div>
+                        <div class="stats-value">${userCount}</div>
                         <div class="stats-label">注册用户</div>
                         <a href="${pageContext.request.contextPath}/admin/users" class="btn">
                             <i class="fas fa-cog"></i> 管理用户
@@ -267,7 +269,7 @@
                         <i class="fas fa-utensils"></i> 菜品统计
                     </div>
                     <div class="card-body">
-                        <div class="stats-value">128</div>
+                        <div class="stats-value">${menuCount}</div>
                         <div class="stats-label">在售菜品</div>
                         <a href="${pageContext.request.contextPath}/menu/admin" class="btn">
                             <i class="fas fa-cog"></i> 管理菜品
@@ -280,9 +282,9 @@
                         <i class="fas fa-clipboard-list"></i> 订单统计
                     </div>
                     <div class="card-body">
-                        <div class="stats-value">85</div>
+                        <div class="stats-value">${todayOrderCount}</div>
                         <div class="stats-label">今日订单</div>
-                        <a href="${pageContext.request.contextPath}/admin/orders" class="btn">
+                        <a href="javascript:void(0);" onclick="showNotAvailable('订单管理')" class="btn">
                             <i class="fas fa-cog"></i> 管理订单
                         </a>
                     </div>
@@ -293,9 +295,9 @@
                         <i class="fas fa-money-bill-wave"></i> 收入统计
                     </div>
                     <div class="card-body">
-                        <div class="stats-value">¥9,658</div>
+                        <div class="stats-value">¥<fmt:formatNumber value="${todayIncome}" pattern="#,##0.00"/></div>
                         <div class="stats-label">今日收入</div>
-                        <a href="${pageContext.request.contextPath}/admin/finance" class="btn">
+                        <a href="javascript:void(0);" onclick="showNotAvailable('财务报表')" class="btn">
                             <i class="fas fa-chart-bar"></i> 查看报表
                         </a>
                     </div>
@@ -309,5 +311,11 @@
             <p>© 2025 随心点 | 后台管理系统</p>
         </div>
     </footer>
+    
+    <script>
+        function showNotAvailable(feature) {
+            alert('抱歉，' + feature + '功能暂未开放，敬请期待！');
+        }
+    </script>
 </body>
 </html> 

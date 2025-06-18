@@ -93,4 +93,10 @@ public interface UserDao {
      * @return 最后一个用户ID
      */
     String getLastUserId();
+    
+    /**
+     * 获取用户总数
+     * @return 用户总数
+     */
+    int getUserCount();
 } 

@@ -29,4 +29,19 @@
         UPDATE `order` SET status = #{status}, update_time = NOW() WHERE id = #{id}
     </update>
 
+    <select id="countOrdersByUserId" resultType="int">
+        SELECT COUNT(*) FROM `order` WHERE user_id = #{userId}
+    </select>
+
+    <select id="getTodayOrderCount" resultType="int">
+        SELECT COUNT(*) FROM `order` 
+        WHERE DATE(create_time) = CURDATE()
+    </select>
+    
+    <select id="getTodayIncome" resultType="java.math.BigDecimal">
+        SELECT COALESCE(SUM(total_amount), 0) FROM `order` 
+        WHERE DATE(create_time) = CURDATE() 
+        AND status = 1
+    </select>
+
 </mapper> 

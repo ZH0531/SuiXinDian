@@ -667,11 +667,11 @@
                             
                             <!-- 登录选项按钮 -->
                             <div class="login-options">
-                                <button type="button" class="login-option active" data-type="user_id">
-                                    <span>用户ID</span>
-                                </button>
-                                <button type="button" class="login-option" data-type="phone">
+                                <button type="button" class="login-option active" data-type="phone">
                                     <span>手机号</span>
+                                </button>
+                                <button type="button" class="login-option" data-type="user_id">
+                                    <span>用户ID</span>
                                 </button>
                                 <button type="button" class="login-option" data-type="email">
                                     <span>邮箱</span>
@@ -680,8 +680,8 @@
                             
                             <form action="${pageContext.request.contextPath}/user/login" method="post" class="login-form">
                                 <div class="form-group" id="username-group">
-                                    <label for="username"><i class="fas fa-user"></i> <span id="login-label">用户ID</span></label>
-                                    <input type="text" id="username" name="username" placeholder="请输入用户ID" required>
+                                    <label for="username"><i class="fas fa-user"></i> <span id="login-label">手机号</span></label>
+                                    <input type="text" id="username" name="username" placeholder="请输入手机号" pattern="[0-9]{11}" inputmode="numeric" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password"><i class="fas fa-lock"></i> 密码</label>
@@ -693,7 +693,7 @@
                                     <label for="rememberMe" style="margin-bottom: 0;">记住我</label>
                                 </div>
                                 
-                                <input type="hidden" name="loginType" value="user_id" id="loginTypeInput">
+                                <input type="hidden" name="loginType" value="phone" id="loginTypeInput">
                                 
                                 <button type="submit"><span>登 录</span></button>
                             </form>

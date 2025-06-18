@@ -333,6 +333,68 @@
             text-align: center;
         }
         
+        /* 新增样式：无订单时的样式 */
+        .no-orders {
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .no-orders:hover {
+            border-color: #FF6B35;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-decoration: none;
+        }
+        
+        .no-orders-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .no-orders-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #f8f9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 24px;
+        }
+        
+        .no-orders-text {
+            text-align: left;
+        }
+        
+        .no-orders-text p {
+            margin: 0;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .no-orders-text small {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .no-orders-btn {
+            grid-column: 4;
+            text-align: center;
+        }
+        
+        .no-orders-btn .btn {
+            display: inline-block;
+        }
+        
         /* 自定义用户菜单样式 */
         .header-user-area {
             display: flex;
@@ -488,7 +550,7 @@
                                 <div class="stat-icon">
                                     <i class="fas fa-shopping-cart"></i>
                                 </div>
-                                <div class="stat-value">8</div>
+                                <div class="stat-value">${orderCount}</div>
                                 <div class="stat-label">历史订单</div>
                             </div>
                             
@@ -539,10 +601,22 @@
                                         </div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="no-orders">
-                                            <p>您还没有订单记录</p>
-                                            <a href="${pageContext.request.contextPath}/menu" class="btn btn-primary">去下单</a>
-                                        </div>
+                                        <a href="${pageContext.request.contextPath}/menu" class="no-orders">
+                                            <div class="no-orders-info">
+                                                <div class="no-orders-icon">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                </div>
+                                                <div class="no-orders-text">
+                                                    <p>还没有订单记录</p>
+                                                    <small>点击开始您的第一次点餐</small>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                            <div></div>
+                                            <div class="no-orders-btn">
+                                                <span class="btn btn-primary">去点餐</span>
+                                            </div>
+                                        </a>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

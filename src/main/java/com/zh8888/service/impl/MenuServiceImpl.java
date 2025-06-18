@@ -194,4 +194,9 @@ public class MenuServiceImpl implements MenuService {
             return 1; // 解析失败时从1开始
         }
     }
+
+    @Override
+    public int getMenuCount() {
+        return menuDao.getMenuCount();
+    }
 } 

@@ -128,4 +128,20 @@ public class OrderServiceImpl implements OrderService {
         }
         return latestOrder;
     }
+
+    @Override
+    public int getOrderCountByUserId(int userId) {
+        return orderDao.countOrdersByUserId(userId);
+    }
+
+    @Override
+    public int getTodayOrderCount() {
+        return orderDao.getTodayOrderCount();
+    }
+    
+    @Override
+    public BigDecimal getTodayIncome() {
+        BigDecimal income = orderDao.getTodayIncome();
+        return income != null ? income : BigDecimal.ZERO;
+    }
 } 

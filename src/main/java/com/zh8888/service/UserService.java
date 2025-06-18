@@ -121,4 +121,10 @@ public interface UserService {
      * @return 唯一的用户ID
      */
     String generateUniqueUserId();
+    
+    /**
+     * 获取用户总数
+     * @return 用户总数
+     */
+    int getUserCount();
 } 

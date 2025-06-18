@@ -156,4 +156,9 @@ public class UserServiceImpl implements UserService {
         // 格式化为5位数，不足前面补0
         return "sxd" + String.format("%05d", nextNum);
     }
+    
+    @Override
+    public int getUserCount() {
+        return userDao.getUserCount();
+    }
 } 
