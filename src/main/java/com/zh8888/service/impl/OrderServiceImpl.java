@@ -131,6 +131,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int getOrderCountByUserId(int userId) {
+        if (userId == 0) {
+            // 获取所有订单数量
+            return orderDao.getAllOrderCount();
+        }
         return orderDao.countOrdersByUserId(userId);
     }
 

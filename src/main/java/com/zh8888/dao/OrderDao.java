@@ -24,4 +24,10 @@ public interface OrderDao {
      * @return 今日收入总额
      */
     BigDecimal getTodayIncome();
+    
+    /**
+     * 获取所有订单数量
+     * @return 所有订单数量
+     */
+    int getAllOrderCount();
 } 

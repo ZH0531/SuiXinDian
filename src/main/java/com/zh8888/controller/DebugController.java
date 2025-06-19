@@ -70,9 +70,17 @@ public class DebugController {
         
         // 数据统计
         try {
-            model.addAttribute("userCount", userService.getUserCount());
-            model.addAttribute("menuCount", menuService.getMenuCount());
-            model.addAttribute("orderCount", orderService.getTodayOrderCount());
+            int userCount = userService.getUserCount();
+            int menuCount = menuService.getMenuCount();
+            int orderCount = orderService.getTodayOrderCount();
+            
+            model.addAttribute("userCount", userCount);
+            model.addAttribute("menuCount", menuCount);
+            model.addAttribute("orderCount", orderCount);
+            
+            // 添加更多统计信息
+            model.addAttribute("totalOrders", orderService.getOrderCountByUserId(0)); // 0表示获取所有订单
+            model.addAttribute("todayIncome", orderService.getTodayIncome());
         } catch (Exception e) {
             model.addAttribute("statsError", e.getMessage());
         }
@@ -81,6 +89,9 @@ public class DebugController {
         model.addAttribute("sessionId", session.getId());
         model.addAttribute("sessionCreationTime", new java.util.Date(session.getCreationTime()));
         model.addAttribute("sessionLastAccessTime", new java.util.Date(session.getLastAccessedTime()));
+        
+        // 服务器信息
+        model.addAttribute("serverPort", session.getServletContext().getAttribute("javax.servlet.context.tempdir"));
         
         return "admin/debug";
     }

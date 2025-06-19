@@ -56,6 +56,11 @@ public class User {
     private Integer role;
     
     /**
+     * 状态(0-已删除，1-正常)
+     */
+    private Integer status;
+    
+    /**
      * 创建时间
      */
     private Date createTime;

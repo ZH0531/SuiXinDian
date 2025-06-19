@@ -285,6 +285,65 @@
             text-align: center;
             margin-top: 40px;
         }
+        
+        /* 导航栏样式 */
+        .admin-header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .admin-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-nav .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-nav .logo i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .admin-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .admin-nav ul li {
+            margin-left: 5px;
+        }
+        
+        .admin-nav ul li a {
+            color: #ddd;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-nav ul li a i {
+            margin-right: 8px;
+        }
+        
+        .admin-nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        
         .admin-nav ul li a.active {
             background-color: white;
             color: #333;
@@ -300,9 +359,11 @@
                     <i class="fas fa-utensils"></i> 随心点 管理后台
                 </a>
                 <ul>
+                    <li><a href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> 首页</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-tachometer-alt"></i> 仪表盘</a></li>
                     <li><a href="${pageContext.request.contextPath}/menu/admin"><i class="fas fa-book-open"></i> 菜品管理</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/users" class="active"><i class="fas fa-users"></i> 用户管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/debug"><i class="fas fa-bug"></i> 系统调试</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/logout"><i class="fas fa-sign-out-alt"></i> 退出</a></li>
                 </ul>
             </div>
@@ -444,7 +505,11 @@
                 <span class="close">&times;</span>
             </div>
             <div class="modal-body">
-                <p>确定要删除这个用户吗？此操作不可恢复。</p>
+                <p>确定要删除这个用户吗？</p>
+                <p style="font-size: 14px; color: #666; margin-top: 10px;">
+                    <i class="fas fa-info-circle"></i> 
+                    删除后用户将无法登录，但其历史订单数据仍会保留。
+                </p>
             </div>
             <div class="modal-footer">
                 <button class="btn" id="deleteCancelBtn">取消</button>

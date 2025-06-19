@@ -492,7 +492,7 @@
     <section class="about-section">
         <div class="about-content">
             <div class="about-image">
-                <img src="${pageContext.request.contextPath}/static/images/about-story.jpg" alt="我们的故事">
+                <img src="${pageContext.request.contextPath}/static/images/about/设计点餐平台%20logo.png" alt="我们的故事">
             </div>
             <div class="about-text">
                 <h2>我们的故事</h2>
@@ -507,7 +507,7 @@
     <section class="about-section reversed">
         <div class="about-content">
             <div class="about-image">
-                <img src="${pageContext.request.contextPath}/static/images/about-mission.jpg" alt="我们的使命">
+                <img src="${pageContext.request.contextPath}/static/images/about/使命.png" alt="我们的使命">
             </div>
             <div class="about-text">
                 <h2>我们的使命</h2>
@@ -528,10 +528,10 @@
         <div class="team-grid">
             <div class="team-member">
                 <div class="member-photo">
-                    <img src="${pageContext.request.contextPath}/static/images/team1.jpg" alt="张明">
+                    <img src="${pageContext.request.contextPath}/static/images/about/头像.jpg" alt="纸鹤">
                 </div>
                 <div class="member-info">
-                    <h3 class="member-name">张明</h3>
+                    <h3 class="member-name">纸鹤</h3>
                     <p class="member-role">创始人 & CEO</p>
                     <p class="member-bio">拥有10年互联网产品经验，曾在多家知名互联网公司担任产品总监，对用户体验和产品设计有独到见解。</p>
                     <div class="social-links">
@@ -544,10 +544,10 @@
             
             <div class="team-member">
                 <div class="member-photo">
-                    <img src="${pageContext.request.contextPath}/static/images/team2.jpg" alt="李华">
+                    <img src="${pageContext.request.contextPath}/static/images/about/头像2.jpg" alt="李华">
                 </div>
                 <div class="member-info">
-                    <h3 class="member-name">李华</h3>
+                    <h3 class="member-name">纸鹤</h3>
                     <p class="member-role">技术总监</p>
                     <p class="member-bio">拥有12年软件开发经验，精通多种编程语言和技术框架，负责随心点平台的技术架构和开发管理。</p>
                     <div class="social-links">
@@ -557,29 +557,13 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="team-member">
                 <div class="member-photo">
-                    <img src="${pageContext.request.contextPath}/static/images/team3.jpg" alt="王芳">
+                    <img src="${pageContext.request.contextPath}/static/images/about/47c23dccaf24da6212a67f8ea4b496bd.jpg" alt="刘强">
                 </div>
                 <div class="member-info">
-                    <h3 class="member-name">王芳</h3>
-                    <p class="member-role">市场总监</p>
-                    <p class="member-bio">拥有8年市场营销经验，擅长品牌建设和推广策略，负责随心点的市场拓展和品牌建设。</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="team-member">
-                <div class="member-photo">
-                    <img src="${pageContext.request.contextPath}/static/images/team4.jpg" alt="刘强">
-                </div>
-                <div class="member-info">
-                    <h3 class="member-name">刘强</h3>
+                    <h3 class="member-name">纸鹤</h3>
                     <p class="member-role">运营总监</p>
                     <p class="member-bio">拥有7年互联网运营经验，熟悉用户增长和留存策略，负责随心点的日常运营和用户服务。</p>
                     <div class="social-links">

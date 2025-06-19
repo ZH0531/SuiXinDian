@@ -12,27 +12,28 @@
         <result column="address" property="address" />
         <result column="gender" property="gender" />
         <result column="role" property="role" />
+        <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
     
     <!-- 通用列 -->
     <sql id="Base_Column_List">
-        id, user_id, password, username, phone, email, address, gender, role, create_time, update_time
+        id, user_id, password, username, phone, email, address, gender, role, status, create_time, update_time
     </sql>
     
     <!-- 插入用户 -->
     <insert id="insertUser" parameterType="com.zh8888.model.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (
-            user_id, password, username, phone, email, address, gender, role, create_time, update_time
+            user_id, password, username, phone, email, address, gender, role, status, create_time, update_time
         ) VALUES (
-            #{userId}, #{password}, #{username}, #{phone}, #{email}, #{address}, #{gender}, #{role}, NOW(), NOW()
+            #{userId}, #{password}, #{username}, #{phone}, #{email}, #{address}, #{gender}, #{role}, 1, NOW(), NOW()
         )
     </insert>
     
-    <!-- 删除用户 -->
+    <!-- 删除用户（软删除） -->
     <delete id="deleteUser" parameterType="java.lang.Integer">
-        DELETE FROM user WHERE id = #{id}
+        UPDATE user SET status = 0, update_time = NOW() WHERE id = #{id}
     </delete>
     
     <!-- 更新用户 -->
@@ -70,6 +71,7 @@
     <select id="getAllUsers" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         FROM user
+        WHERE status = 1
         ORDER BY id
     </select>
     
@@ -77,21 +79,21 @@
     <select id="login" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         FROM user
-        WHERE user_id = #{userId} AND password = #{password}
+        WHERE user_id = #{userId} AND password = #{password} AND status = 1
     </select>
     
     <!-- 手机号登录 -->
     <select id="loginByPhone" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         FROM user
-        WHERE phone = #{phone} AND password = #{password}
+        WHERE phone = #{phone} AND password = #{password} AND status = 1
     </select>
     
     <!-- 邮箱登录 -->
     <select id="loginByEmail" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
         FROM user
-        WHERE email = #{email} AND password = #{password}
+        WHERE email = #{email} AND password = #{password} AND status = 1
     </select>
     
     <!-- 根据手机号查询用户 -->

@@ -13,6 +13,7 @@ CREATE TABLE `user` (
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   `gender` tinyint(1) DEFAULT NULL COMMENT '性别：0-女，1-男',
   `role` tinyint(1) DEFAULT '0' COMMENT '角色：0-普通用户，1-管理员',
+  `status` tinyint(1) DEFAULT '1' COMMENT '状态：0-已删除，1-正常',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),

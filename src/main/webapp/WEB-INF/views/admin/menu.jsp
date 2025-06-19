@@ -512,9 +512,11 @@
                     <i class="fas fa-utensils"></i> 随心点 管理后台
                 </a>
                 <ul>
+                    <li><a href="${pageContext.request.contextPath}/"><i class="fas fa-home"></i> 首页</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/dashboard"><i class="fas fa-tachometer-alt"></i> 仪表盘</a></li>
                     <li><a href="${pageContext.request.contextPath}/menu/admin" class="active"><i class="fas fa-book-open"></i> 菜品管理</a></li>
                     <li><a href="${pageContext.request.contextPath}/admin/users"><i class="fas fa-users"></i> 用户管理</a></li>
+                    <li><a href="${pageContext.request.contextPath}/debug"><i class="fas fa-bug"></i> 系统调试</a></li>
                     <li><a href="${pageContext.request.contextPath}/user/logout"><i class="fas fa-sign-out-alt"></i> 退出</a></li>
                 </ul>
             </div>
@@ -627,7 +629,7 @@
                                 <label for="menuImage">图片</label>
                                 <div class="image-upload-container">
                                     <div class="image-preview" id="imagePreview">
-                                        <img src="/static/images/dishes/default.jpg" alt="预览" id="previewImg">
+                                        <img src="${pageContext.request.contextPath}/static/images/dishes/default.jpg" alt="预览" id="previewImg">
                                     </div>
                                     <div>
                                         <label for="imageUpload" class="upload-btn">
@@ -943,9 +945,16 @@
             // 编辑菜品时加载图片预览
             function loadImagePreview(url) {
                 if (url) {
-                    document.getElementById('previewImg').src = url;
+                    // 确保路径以/开头
+                    if (!url.startsWith('/')) {
+                        url = '/' + url;
+                    }
+                    // 添加context path
+                    const fullUrl = '${pageContext.request.contextPath}' + url;
+                    console.log('加载图片预览:', fullUrl);
+                    document.getElementById('previewImg').src = fullUrl;
                 } else {
-                    document.getElementById('previewImg').src = '/static/images/dishes/default.jpg';
+                    document.getElementById('previewImg').src = '${pageContext.request.contextPath}/static/images/dishes/default.jpg';
                 }
             }
         });

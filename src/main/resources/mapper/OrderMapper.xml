@@ -44,4 +44,8 @@
         AND status = 1
     </select>
 
+    <select id="getAllOrderCount" resultType="int">
+        SELECT COUNT(*) FROM `order`
+    </select>
+
 </mapper> 

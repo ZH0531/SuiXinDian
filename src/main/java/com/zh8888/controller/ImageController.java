@@ -1,6 +1,7 @@
 package com.zh8888.controller;
 
 import com.zh8888.model.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,10 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/image")
 public class ImageController {
+    
+    // 从配置文件读取，如果没有配置则使用默认值
+    @Value("${upload.path:}")
+    private String uploadPath;
 
     /**
      * 上传图片
@@ -62,16 +67,55 @@ public class ImageController {
             // 按日期创建目录
             String datePath = new SimpleDateFormat("yyyyMMdd").format(new Date());
             
-            // 获取上传目录的真实路径
-            String uploadDir = request.getServletContext().getRealPath("/static/images/dishes/") + datePath;
+            // 获取上传目录
+            String uploadDir;
+            if (uploadPath != null && !uploadPath.isEmpty()) {
+                // 使用配置的绝对路径
+                uploadDir = uploadPath + File.separator + "dishes" + File.separator + datePath;
+            } else {
+                // 智能查找项目源码路径
+                String realPath = request.getServletContext().getRealPath("/");
+                
+                // 如果是在target目录中运行，尝试找到源码目录
+                if (realPath != null && realPath.contains("target")) {
+                    // 从 target 路径推断出项目根目录
+                    String projectRoot = realPath.substring(0, realPath.indexOf("target"));
+                    uploadDir = projectRoot + "src" + File.separator + 
+                               "main" + File.separator + "webapp" + File.separator + 
+                               "static" + File.separator + "images" + File.separator + 
+                               "dishes" + File.separator + datePath;
+                } else {
+                    // 使用固定的项目源码路径作为后备方案
+                    uploadDir = "D:" + File.separator + "Desktop" + File.separator + 
+                               "WebShixun" + File.separator + "src" + File.separator + 
+                               "main" + File.separator + "webapp" + File.separator + 
+                               "static" + File.separator + "images" + File.separator + 
+                               "dishes" + File.separator + datePath;
+                }
+                
+                System.out.println("使用源码目录保存图片: " + uploadDir);
+            }
+            
             File dir = new File(uploadDir);
             if (!dir.exists()) {
-                dir.mkdirs();
+                boolean created = dir.mkdirs();
+                if (!created) {
+                    result.put("success", false);
+                    result.put("message", "创建上传目录失败，请检查权限");
+                    return result;
+                }
             }
             
             // 保存文件
             File destFile = new File(uploadDir + File.separator + newFilename);
             image.transferTo(destFile);
+            
+            // 验证文件是否真的保存成功
+            if (!destFile.exists()) {
+                result.put("success", false);
+                result.put("message", "文件保存失败");
+                return result;
+            }
             
             // 返回文件访问路径
             String filePath = "/static/images/dishes/" + datePath + "/" + newFilename;
@@ -79,6 +123,14 @@ public class ImageController {
             result.put("success", true);
             result.put("path", filePath);
             result.put("message", "上传成功");
+            
+            // 添加调试信息
+            System.out.println("=== 图片上传成功 ===");
+            System.out.println("文件已保存到: " + destFile.getAbsolutePath());
+            System.out.println("文件大小: " + destFile.length() + " bytes");
+            System.out.println("访问路径: " + filePath);
+            System.out.println("==================");
+            
         } catch (IOException e) {
             e.printStackTrace();
             result.put("success", false);
