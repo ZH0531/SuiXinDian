@@ -367,235 +367,235 @@
     
     <div class="debug-container">
         <div class="container">
-            <div class="debug-header">
-                <h1><i class="fas fa-bug"></i> 系统调试中心</h1>
-                <p>查看系统状态和执行调试操作</p>
+        <div class="debug-header">
+            <h1><i class="fas fa-bug"></i> 系统调试中心</h1>
+            <p>查看系统状态和执行调试操作</p>
+        </div>
+        
+        <!-- 服务状态 -->
+        <div class="debug-section">
+            <div class="section-header">
+                <h2><i class="fas fa-server"></i> 服务状态</h2>
             </div>
-            
-            <!-- 服务状态 -->
-            <div class="debug-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-server"></i> 服务状态</h2>
-                </div>
-                <div class="section-body">
-                    <div class="status-grid">
-                        <!-- 数据库连接状态 -->
-                        <div class="status-item">
-                            <div class="status-header">
-                                <span class="status-name"><i class="fas fa-database"></i> 数据库连接</span>
-                                <span class="status-badge ${dbStatus ? 'status-ok' : 'status-error'}">
-                                    ${dbStatus ? '正常运行' : '连接异常'}
-                                </span>
-                            </div>
-                            <div class="status-info">
-                                MySQL数据库连接池状态
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">状态：</span>
-                                <span class="status-detail-value">${dbStatus ? '已连接' : '断开'}</span>
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">连接池：</span>
-                                <span class="status-detail-value">HikariCP</span>
-                            </div>
+            <div class="section-body">
+                <div class="status-grid">
+                    <!-- 数据库连接状态 -->
+                    <div class="status-item">
+                        <div class="status-header">
+                            <span class="status-name"><i class="fas fa-database"></i> 数据库连接</span>
+                            <span class="status-badge ${dbStatus ? 'status-ok' : 'status-error'}">
+                                ${dbStatus ? '正常运行' : '连接异常'}
+                            </span>
                         </div>
-                        
-                        <!-- UserService状态 -->
-                        <div class="status-item">
-                            <div class="status-header">
-                                <span class="status-name"><i class="fas fa-users"></i> 用户服务</span>
-                                <span class="status-badge ${serviceStatus['UserService'] ? 'status-ok' : 'status-error'}">
-                                    ${serviceStatus['UserService'] ? '正常运行' : '服务异常'}
-                                </span>
-                            </div>
-                            <div class="status-info">
-                                用户管理核心服务
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">状态：</span>
-                                <span class="status-detail-value">${serviceStatus['UserService'] ? '已加载' : '未加载'}</span>
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">用户总数：</span>
-                                <span class="status-detail-value">${userCount > 0 ? userCount : '-'}</span>
-                            </div>
+                        <div class="status-info">
+                            MySQL数据库连接池状态
                         </div>
-                        
-                        <!-- MenuService状态 -->
-                        <div class="status-item">
-                            <div class="status-header">
-                                <span class="status-name"><i class="fas fa-utensils"></i> 菜品服务</span>
-                                <span class="status-badge ${serviceStatus['MenuService'] ? 'status-ok' : 'status-error'}">
-                                    ${serviceStatus['MenuService'] ? '正常运行' : '服务异常'}
-                                </span>
-                            </div>
-                            <div class="status-info">
-                                菜品管理核心服务
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">状态：</span>
-                                <span class="status-detail-value">${serviceStatus['MenuService'] ? '已加载' : '未加载'}</span>
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">菜品总数：</span>
-                                <span class="status-detail-value">${menuCount > 0 ? menuCount : '-'}</span>
-                            </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">状态：</span>
+                            <span class="status-detail-value">${dbStatus ? '已连接' : '断开'}</span>
                         </div>
-                        
-                        <!-- OrderService状态 -->
-                        <div class="status-item">
-                            <div class="status-header">
-                                <span class="status-name"><i class="fas fa-clipboard-list"></i> 订单服务</span>
-                                <span class="status-badge ${serviceStatus['OrderService'] ? 'status-ok' : 'status-error'}">
-                                    ${serviceStatus['OrderService'] ? '正常运行' : '服务异常'}
-                                </span>
-                            </div>
-                            <div class="status-info">
-                                订单处理核心服务
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">状态：</span>
-                                <span class="status-detail-value">${serviceStatus['OrderService'] ? '已加载' : '未加载'}</span>
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">今日订单：</span>
-                                <span class="status-detail-value">${orderCount >= 0 ? orderCount : '-'}</span>
-                            </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">连接池：</span>
+                            <span class="status-detail-value">HikariCP</span>
                         </div>
-                        
-                        <!-- CartService状态 -->
-                        <div class="status-item">
-                            <div class="status-header">
-                                <span class="status-name"><i class="fas fa-shopping-cart"></i> 购物车服务</span>
-                                <span class="status-badge ${serviceStatus['CartService'] ? 'status-ok' : 'status-error'}">
-                                    ${serviceStatus['CartService'] ? '正常运行' : '服务异常'}
-                                </span>
-                            </div>
-                            <div class="status-info">
-                                购物车管理服务
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">状态：</span>
-                                <span class="status-detail-value">${serviceStatus['CartService'] ? '已加载' : '未加载'}</span>
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">存储方式：</span>
-                                <span class="status-detail-value">Session</span>
-                            </div>
+                    </div>
+                    
+                    <!-- UserService状态 -->
+                    <div class="status-item">
+                        <div class="status-header">
+                            <span class="status-name"><i class="fas fa-users"></i> 用户服务</span>
+                            <span class="status-badge ${serviceStatus['UserService'] ? 'status-ok' : 'status-error'}">
+                                ${serviceStatus['UserService'] ? '正常运行' : '服务异常'}
+                            </span>
                         </div>
-                        
-                        <!-- Web服务器状态 -->
-                        <div class="status-item">
-                            <div class="status-header">
-                                <span class="status-name"><i class="fas fa-globe"></i> Web服务器</span>
-                                <span class="status-badge status-ok">正常运行</span>
-                            </div>
-                            <div class="status-info">
-                                Tomcat应用服务器
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">状态：</span>
-                                <span class="status-detail-value">运行中</span>
-                            </div>
-                            <div class="status-detail">
-                                <span class="status-detail-label">端口：</span>
-                                <span class="status-detail-value">8080</span>
-                            </div>
+                        <div class="status-info">
+                            用户管理核心服务
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">状态：</span>
+                            <span class="status-detail-value">${serviceStatus['UserService'] ? '已加载' : '未加载'}</span>
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">用户总数：</span>
+                            <span class="status-detail-value">${userCount > 0 ? userCount : '-'}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- MenuService状态 -->
+                    <div class="status-item">
+                        <div class="status-header">
+                            <span class="status-name"><i class="fas fa-utensils"></i> 菜品服务</span>
+                            <span class="status-badge ${serviceStatus['MenuService'] ? 'status-ok' : 'status-error'}">
+                                ${serviceStatus['MenuService'] ? '正常运行' : '服务异常'}
+                            </span>
+                        </div>
+                        <div class="status-info">
+                            菜品管理核心服务
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">状态：</span>
+                            <span class="status-detail-value">${serviceStatus['MenuService'] ? '已加载' : '未加载'}</span>
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">菜品总数：</span>
+                            <span class="status-detail-value">${menuCount > 0 ? menuCount : '-'}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- OrderService状态 -->
+                    <div class="status-item">
+                        <div class="status-header">
+                            <span class="status-name"><i class="fas fa-clipboard-list"></i> 订单服务</span>
+                            <span class="status-badge ${serviceStatus['OrderService'] ? 'status-ok' : 'status-error'}">
+                                ${serviceStatus['OrderService'] ? '正常运行' : '服务异常'}
+                            </span>
+                        </div>
+                        <div class="status-info">
+                            订单处理核心服务
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">状态：</span>
+                            <span class="status-detail-value">${serviceStatus['OrderService'] ? '已加载' : '未加载'}</span>
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">今日订单：</span>
+                            <span class="status-detail-value">${orderCount >= 0 ? orderCount : '-'}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- CartService状态 -->
+                    <div class="status-item">
+                        <div class="status-header">
+                            <span class="status-name"><i class="fas fa-shopping-cart"></i> 购物车服务</span>
+                            <span class="status-badge ${serviceStatus['CartService'] ? 'status-ok' : 'status-error'}">
+                                ${serviceStatus['CartService'] ? '正常运行' : '服务异常'}
+                            </span>
+                        </div>
+                        <div class="status-info">
+                            购物车管理服务
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">状态：</span>
+                            <span class="status-detail-value">${serviceStatus['CartService'] ? '已加载' : '未加载'}</span>
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">存储方式：</span>
+                            <span class="status-detail-value">Session</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Web服务器状态 -->
+                    <div class="status-item">
+                        <div class="status-header">
+                            <span class="status-name"><i class="fas fa-globe"></i> Web服务器</span>
+                            <span class="status-badge status-ok">正常运行</span>
+                        </div>
+                        <div class="status-info">
+                            Tomcat应用服务器
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">状态：</span>
+                            <span class="status-detail-value">运行中</span>
+                        </div>
+                        <div class="status-detail">
+                            <span class="status-detail-label">端口：</span>
+                            <span class="status-detail-value">8080</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- 数据统计 -->
-            <div class="debug-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-chart-bar"></i> 数据统计</h2>
-                </div>
-                <div class="section-body">
-                    <c:choose>
-                        <c:when test="${not empty statsError}">
-                            <p style="color: #dc3545;">获取统计数据失败: ${statsError}</p>
-                        </c:when>
-                        <c:otherwise>
-                            <table class="info-table">
-                                <tr>
-                                    <td>用户总数</td>
-                                    <td>${userCount}</td>
-                                </tr>
-                                <tr>
-                                    <td>菜品总数</td>
-                                    <td>${menuCount}</td>
-                                </tr>
-                                <tr>
-                                    <td>今日订单数</td>
-                                    <td>${orderCount}</td>
-                                </tr>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
+        </div>
+        
+        <!-- 数据统计 -->
+        <div class="debug-section">
+            <div class="section-header">
+                <h2><i class="fas fa-chart-bar"></i> 数据统计</h2>
+            </div>
+            <div class="section-body">
+                <c:choose>
+                    <c:when test="${not empty statsError}">
+                        <p style="color: #dc3545;">获取统计数据失败: ${statsError}</p>
+                    </c:when>
+                    <c:otherwise>
+                        <table class="info-table">
+                            <tr>
+                                <td>用户总数</td>
+                                <td>${userCount}</td>
+                            </tr>
+                            <tr>
+                                <td>菜品总数</td>
+                                <td>${menuCount}</td>
+                            </tr>
+                            <tr>
+                                <td>今日订单数</td>
+                                <td>${orderCount}</td>
+                            </tr>
+                        </table>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+        
+        <!-- Session信息 -->
+        <div class="debug-section">
+            <div class="section-header">
+                <h2><i class="fas fa-user-clock"></i> Session信息</h2>
+            </div>
+            <div class="section-body">
+                <table class="info-table">
+                    <tr>
+                        <td>Session ID</td>
+                        <td>${sessionId}</td>
+                    </tr>
+                    <tr>
+                        <td>创建时间</td>
+                        <td><fmt:formatDate value="${sessionCreationTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    </tr>
+                    <tr>
+                        <td>最后访问时间</td>
+                        <td><fmt:formatDate value="${sessionLastAccessTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    </tr>
+                    <tr>
+                        <td>当前用户</td>
+                        <td>${user.username} (ID: ${user.userId})</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 系统信息 -->
+        <div class="debug-section">
+            <div class="section-header">
+                <h2><i class="fas fa-info-circle"></i> 系统信息</h2>
+                <button class="debug-btn debug-btn-primary" onclick="getSystemInfo()">
+                    <i class="fas fa-sync"></i> 刷新
+                </button>
+            </div>
+            <div class="section-body">
+                <div id="systemInfo">
+                    <p style="color: #666;">点击刷新按钮获取系统信息</p>
                 </div>
             </div>
-            
-            <!-- Session信息 -->
-            <div class="debug-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-user-clock"></i> Session信息</h2>
-                </div>
-                <div class="section-body">
-                    <table class="info-table">
-                        <tr>
-                            <td>Session ID</td>
-                            <td>${sessionId}</td>
-                        </tr>
-                        <tr>
-                            <td>创建时间</td>
-                            <td><fmt:formatDate value="${sessionCreationTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                        </tr>
-                        <tr>
-                            <td>最后访问时间</td>
-                            <td><fmt:formatDate value="${sessionLastAccessTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                        </tr>
-                        <tr>
-                            <td>当前用户</td>
-                            <td>${user.username} (ID: ${user.userId})</td>
-                        </tr>
-                    </table>
-                </div>
+        </div>
+        
+        <!-- 调试操作 -->
+        <div class="debug-section">
+            <div class="section-header">
+                <h2><i class="fas fa-tools"></i> 调试操作</h2>
             </div>
-            
-            <!-- 系统信息 -->
-            <div class="debug-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-info-circle"></i> 系统信息</h2>
-                    <button class="debug-btn debug-btn-primary" onclick="getSystemInfo()">
-                        <i class="fas fa-sync"></i> 刷新
+            <div class="section-body">
+                <div class="debug-actions">
+                    <button class="debug-btn debug-btn-success" onclick="testDatabase()">
+                        <i class="fas fa-database"></i> 测试数据库
+                    </button>
+                    <button class="debug-btn debug-btn-warning" onclick="clearCache()">
+                        <i class="fas fa-broom"></i> 清除缓存
+                    </button>
+                    <button class="debug-btn debug-btn-primary" onclick="reloadConfig()">
+                        <i class="fas fa-redo"></i> 重载配置
                     </button>
                 </div>
-                <div class="section-body">
-                    <div id="systemInfo">
-                        <p style="color: #666;">点击刷新按钮获取系统信息</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 调试操作 -->
-            <div class="debug-section">
-                <div class="section-header">
-                    <h2><i class="fas fa-tools"></i> 调试操作</h2>
-                </div>
-                <div class="section-body">
-                    <div class="debug-actions">
-                        <button class="debug-btn debug-btn-success" onclick="testDatabase()">
-                            <i class="fas fa-database"></i> 测试数据库
-                        </button>
-                        <button class="debug-btn debug-btn-warning" onclick="clearCache()">
-                            <i class="fas fa-broom"></i> 清除缓存
-                        </button>
-                        <button class="debug-btn debug-btn-primary" onclick="reloadConfig()">
-                            <i class="fas fa-redo"></i> 重载配置
-                        </button>
-                    </div>
-                    <div id="actionResult" class="result-message"></div>
+                <div id="actionResult" class="result-message"></div>
                 </div>
             </div>
         </div>

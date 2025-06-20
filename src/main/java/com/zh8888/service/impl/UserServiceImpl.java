@@ -77,6 +77,20 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         
+        // 处理空字符串，将其转换为 null 以避免唯一性约束冲突
+        if (user.getPhone() != null && user.getPhone().trim().isEmpty()) {
+            user.setPhone(null);
+        }
+        if (user.getEmail() != null && user.getEmail().trim().isEmpty()) {
+            user.setEmail(null);
+        }
+        if (user.getAddress() != null && user.getAddress().trim().isEmpty()) {
+            user.setAddress(null);
+        }
+        if (user.getUsername() != null && user.getUsername().trim().isEmpty()) {
+            user.setUsername(null);
+        }
+        
         // 如果有提供新密码，需要加密
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
             user.setPassword(encryptPassword(user.getPassword()));

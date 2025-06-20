@@ -362,15 +362,16 @@ public class UserController {
             // 更新手机号
             String phone = request.getParameter("phone");
             if (phone != null) {
-                if (!phone.trim().isEmpty()) {
+                phone = phone.trim();
+                if (!phone.isEmpty()) {
                     // 检查手机号是否已被其他用户使用
-                    User existingUser = userService.findByPhone(phone.trim());
+                    User existingUser = userService.findByPhone(phone);
                     if (existingUser != null && !existingUser.getId().equals(user.getId())) {
                         response.put("success", false);
                         response.put("message", "手机号已被使用");
                         return response;
                     }
-                    user.setPhone(phone.trim());
+                    user.setPhone(phone);
                 } else {
                     user.setPhone(null);
                 }
@@ -380,15 +381,16 @@ public class UserController {
             // 更新邮箱
             String email = request.getParameter("email");
             if (email != null) {
-                if (!email.trim().isEmpty()) {
+                email = email.trim();
+                if (!email.isEmpty()) {
                     // 检查邮箱是否已被其他用户使用
-                    User existingUser = userService.findByEmail(email.trim());
+                    User existingUser = userService.findByEmail(email);
                     if (existingUser != null && !existingUser.getId().equals(user.getId())) {
                         response.put("success", false);
                         response.put("message", "邮箱已被使用");
                         return response;
                     }
-                    user.setEmail(email.trim());
+                    user.setEmail(email);
                 } else {
                     user.setEmail(null);
                 }
@@ -456,28 +458,38 @@ public class UserController {
             }
             
             String email = request.getParameter("email");
-            if (email != null && !email.trim().isEmpty()) {
-                // 检查邮箱是否已被其他用户使用
-                User existingUser = userService.findByEmail(email.trim());
-                if (existingUser != null && !existingUser.getId().equals(user.getId())) {
-                    response.put("success", false);
-                    response.put("message", "邮箱已被使用");
-                    return response;
+            if (email != null) {
+                email = email.trim();
+                if (!email.isEmpty()) {
+                    // 检查邮箱是否已被其他用户使用
+                    User existingUser = userService.findByEmail(email);
+                    if (existingUser != null && !existingUser.getId().equals(user.getId())) {
+                        response.put("success", false);
+                        response.put("message", "邮箱已被使用");
+                        return response;
+                    }
+                    user.setEmail(email);
+                } else {
+                    user.setEmail(null);
                 }
-                user.setEmail(email.trim());
                 updated = true;
             }
             
             String phone = request.getParameter("phone");
-            if (phone != null && !phone.trim().isEmpty()) {
-                // 检查手机号是否已被其他用户使用
-                User existingUser = userService.findByPhone(phone.trim());
-                if (existingUser != null && !existingUser.getId().equals(user.getId())) {
-                    response.put("success", false);
-                    response.put("message", "手机号已被使用");
-                    return response;
+            if (phone != null) {
+                phone = phone.trim();
+                if (!phone.isEmpty()) {
+                    // 检查手机号是否已被其他用户使用
+                    User existingUser = userService.findByPhone(phone);
+                    if (existingUser != null && !existingUser.getId().equals(user.getId())) {
+                        response.put("success", false);
+                        response.put("message", "手机号已被使用");
+                        return response;
+                    }
+                    user.setPhone(phone);
+                } else {
+                    user.setPhone(null);
                 }
-                user.setPhone(phone.trim());
                 updated = true;
             }
             

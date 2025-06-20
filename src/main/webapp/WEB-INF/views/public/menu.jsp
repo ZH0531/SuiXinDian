@@ -596,7 +596,7 @@
                                                 <div class="dish-image">
                                                     <img src="${pageContext.request.contextPath}${menu.imageUrl}" 
                                                          alt="${menu.name}"
-                                                         onerror="this.src='${pageContext.request.contextPath}/static/images/头像.jpg'">
+                                                         onerror="this.src='${pageContext.request.contextPath}/static/images/about/头像.jpg'">
                                                 </div>
                                                 <div class="dish-info">
                                                     <h3 class="dish-title">${menu.name}</h3>
@@ -768,7 +768,7 @@ const cart = {
             let itemsHtml = '';
             this.items.forEach(item => {
                 itemsHtml += '<div class="cart-item" data-id="' + item.id + '">';
-                itemsHtml += '<img src="' + contextPath + item.image + '" alt="' + item.name + '" class="cart-item-image" onerror="this.src=\'' + contextPath + '/static/images/头像.jpg\'">';
+                itemsHtml += '<img src="' + contextPath + item.image + '" alt="' + item.name + '" class="cart-item-image" onerror="this.src=\'' + contextPath + '/static/images/about/头像.jpg\'">';
                 itemsHtml += '<div class="cart-item-info">';
                 itemsHtml += '<div class="cart-item-name">' + item.name + '</div>';
                 itemsHtml += '<div class="cart-item-price">¥' + item.price.toFixed(2) + '</div>';

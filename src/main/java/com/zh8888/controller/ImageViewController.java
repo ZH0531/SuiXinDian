@@ -24,65 +24,126 @@ public class ImageViewController {
                          HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
         
-        // 构建文件路径
-        String projectRoot = System.getProperty("user.dir");
-        String filePath = projectRoot + File.separator + "src" + File.separator + 
-                         "main" + File.separator + "webapp" + File.separator + 
-                         "static" + File.separator + "images" + File.separator + 
-                         "dishes" + File.separator + date + File.separator + filename;
+        File imageFile = null;
+        boolean found = false;
         
-        File imageFile = new File(filePath);
-        String realPath = null;
+        // 方法1：优先从源码目录查找（开发环境优先）
+        try {
+            String webRootPath = request.getServletContext().getRealPath("/");
+            String projectRoot;
+            
+            if (webRootPath != null && webRootPath.contains("target")) {
+                // 在target目录中运行，获取项目根目录
+                projectRoot = webRootPath.substring(0, webRootPath.indexOf("target"));
+            } else {
+                // 使用当前工作目录作为备选
+                projectRoot = System.getProperty("user.dir");
+                // 如果工作目录是tomcat bin目录，需要回退到项目目录
+                if (projectRoot.contains("apache-tomcat") && projectRoot.endsWith("bin")) {
+                    projectRoot = projectRoot.substring(0, projectRoot.lastIndexOf("apache-tomcat"));
+                }
+            }
+            
+            String sourceImagePath = projectRoot + "src" + File.separator + 
+                                   "main" + File.separator + "webapp" + File.separator + 
+                                   "static" + File.separator + "images" + File.separator + 
+                                   "dishes" + File.separator + date + File.separator + filename;
+            
+            imageFile = new File(sourceImagePath);
+            System.out.println("优先尝试源码路径: " + sourceImagePath);
+            
+            if (imageFile.exists()) {
+                found = true;
+                System.out.println("✓ 在源码目录找到图片");
+            }
+        } catch (Exception e) {
+            System.out.println("源码路径查找失败: " + e.getMessage());
+        }
         
-        // 如果文件不存在，尝试其他路径
-        if (!imageFile.exists()) {
-            realPath = request.getServletContext().getRealPath("/static/images/dishes/" + date + "/" + filename);
-            if (realPath != null) {
-                imageFile = new File(realPath);
+        // 方法2：如果源码目录没找到，尝试Web部署目录
+        if (!found) {
+            try {
+                String webRootPath = request.getServletContext().getRealPath("/");
+                if (webRootPath != null) {
+                    String webImagePath = webRootPath + "static" + File.separator + "images" + File.separator + 
+                                        "dishes" + File.separator + date + File.separator + filename;
+                    imageFile = new File(webImagePath);
+                    
+                    System.out.println("备选Web部署路径: " + webImagePath);
+                    if (imageFile.exists()) {
+                        found = true;
+                        System.out.println("✓ 在Web部署目录找到图片");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Web路径查找失败: " + e.getMessage());
             }
         }
         
-        // 如果文件不存在，返回默认图片
-        if (!imageFile.exists()) {
-            System.out.println("图片文件不存在: " + filePath);
+        // 方法3：如果都没找到，使用默认图片
+        if (!found) {
+            System.out.println("× 图片文件不存在，使用默认图片");
             
-            // 尝试使用默认图片
-            String defaultImagePath;
-            if (realPath == null) {
-                realPath = request.getServletContext().getRealPath("/");
+            // 优先使用源码目录的默认图片
+            String webRootPath = request.getServletContext().getRealPath("/");
+            String projectRoot;
+            
+            if (webRootPath != null && webRootPath.contains("target")) {
+                projectRoot = webRootPath.substring(0, webRootPath.indexOf("target"));
+            } else {
+                projectRoot = System.getProperty("user.dir");
+                if (projectRoot.contains("apache-tomcat") && projectRoot.endsWith("bin")) {
+                    projectRoot = projectRoot.substring(0, projectRoot.lastIndexOf("apache-tomcat"));
+                }
             }
             
-            if (realPath != null && realPath.contains("target")) {
-                // 在target目录中运行，使用源码目录的默认图片
-                String projectRootFromReal = realPath.substring(0, realPath.indexOf("target"));
-                defaultImagePath = projectRootFromReal + "src" + File.separator + 
-                                 "main" + File.separator + "webapp" + File.separator + 
-                                 "static" + File.separator + "images" + File.separator + 
-                                 "dishes" + File.separator + "default.jpg";
-            } else {
-                // 使用项目根目录的默认图片
-                defaultImagePath = projectRoot + File.separator + "src" + File.separator + 
-                                 "main" + File.separator + "webapp" + File.separator + 
-                                 "static" + File.separator + "images" + File.separator + 
-                                 "dishes" + File.separator + "default.jpg";
-            }
+            String defaultSourcePath = projectRoot + "src" + File.separator + 
+                                     "main" + File.separator + "webapp" + File.separator + 
+                                     "static" + File.separator + "images" + File.separator + 
+                                     "dishes" + File.separator + "default.jpg";
             
-            File defaultFile = new File(defaultImagePath);
-            System.out.println("尝试使用默认图片: " + defaultImagePath);
+            File defaultSourceFile = new File(defaultSourcePath);
+            System.out.println("尝试源码默认图片: " + defaultSourcePath);
             
-            if (defaultFile.exists()) {
-                imageFile = defaultFile;
+            if (defaultSourceFile.exists()) {
+                imageFile = defaultSourceFile;
+                found = true;
+                System.out.println("✓ 使用源码目录的默认图片");
             } else {
-                // 如果默认图片也不存在，返回404
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                return;
+                // 如果源码默认图片不存在，尝试Web部署目录的默认图片
+                if (webRootPath != null) {
+                    String defaultWebPath = webRootPath + "static" + File.separator + "images" + File.separator + 
+                                           "dishes" + File.separator + "default.jpg";
+                    File defaultWebFile = new File(defaultWebPath);
+                    System.out.println("尝试Web默认图片: " + defaultWebPath);
+                    
+                    if (defaultWebFile.exists()) {
+                        imageFile = defaultWebFile;
+                        found = true;
+                        System.out.println("✓ 使用Web部署目录的默认图片");
+                    } else {
+                        // 如果默认图片也不存在，返回404
+                        System.out.println("× 默认图片也不存在，返回404");
+                        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                        return;
+                    }
+                } else {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    return;
+                }
             }
         }
         
         // 设置响应头
         String mimeType = request.getServletContext().getMimeType(filename);
         if (mimeType == null) {
-            mimeType = "image/jpeg";
+            if (filename.toLowerCase().endsWith(".png")) {
+                mimeType = "image/png";
+            } else if (filename.toLowerCase().endsWith(".jpg") || filename.toLowerCase().endsWith(".jpeg")) {
+                mimeType = "image/jpeg";
+            } else {
+                mimeType = "image/jpeg"; // 默认
+            }
         }
         response.setContentType(mimeType);
         response.setContentLength((int) imageFile.length());
