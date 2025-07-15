@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon">
     <style>
         /* 首页特定样式 */
         .main-content {
@@ -339,31 +340,80 @@
         
         /* 页脚样式 */
         .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 60px;
             margin-bottom: 20px;
+            padding: 0 40px;
+            max-width: 1200px;
+            margin: 0 auto 20px auto;
         }
         
         .footer-section {
-            flex: 1;
-            min-width: 200px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-section:first-child {
+            text-align: left;
+        }
+        
+        .footer-section:nth-child(2) {
+            text-align: left;
+        }
+        
+        .footer-section:last-child {
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            color: #dfe6e9;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 6px;
+            display: inline-block;
+            margin: 0 0 12px 0;
         }
         
         .footer-logo {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: #dfe6e9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 12px 0;
+        }
+        
+        .footer-logo i {
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+        
+        .footer-section p {
+            color: #bdc3c7;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            margin: 0 0 12px 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 0;
+            padding: 0;
         }
         
         .footer-links a {
-            display: block;
-            margin-bottom: 10px;
-            color: #dfe6e9;
+            color: #bdc3c7;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
+            padding: 3px 0;
+            display: block;
+            margin: 0;
         }
         
         .footer-links a:hover {
@@ -372,8 +422,55 @@
         
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+        
+        /* 联系信息样式 */
+        .footer-section .contact-info {
+            display: flex;
+            align-items: center;
+            color: #bdc3c7;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+        
+        .footer-section .contact-info i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            width: 16px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .footer-section .contact-info:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 页脚描述样式 */
+        .footer-description {
+            color: #bdc3c7;
+            margin: 0 0 12px 0;
+            line-height: 1.5;
+        }
+        
+        /* 备案信息样式 */
+        .footer-beian {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 14px;
+            display: block;
+            margin: 8px 0 0 0;
+        }
+        
+        .footer-beian:hover {
+            color: var(--primary-color);
+        }
+        
+        .footer-beian span {
+            text-decoration: underline;
         }
         
         /* 响应式布局 */
@@ -384,6 +481,78 @@
             
             .login-section {
                 order: -1;
+            }
+            
+            /* 移动端页脚样式 */
+            .footer-content {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding: 0 15px;
+                text-align: center;
+                margin: 0 auto 15px auto;
+            }
+            
+            .footer-section {
+                margin-bottom: 20px;
+            }
+            
+            .footer-section h3 {
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            
+            .footer-logo {
+                font-size: 24px;
+                justify-content: center;
+            }
+            
+            .footer-description {
+                font-size: 14px;
+                text-align: center;
+            }
+            
+            .footer-beian {
+                font-size: 12px;
+                text-align: center;
+            }
+            
+            .footer-section:first-child,
+            .footer-section:nth-child(2),
+            .footer-section:last-child {
+                text-align: center;
+            }
+            
+            .footer-links a {
+                padding: 8px 0;
+                font-size: 14px;
+            }
+            
+            .footer-bottom {
+                padding: 15px 0;
+                margin-top: 10px;
+            }
+            
+            /* 移动端联系信息 */
+            .footer-section .contact-info {
+                justify-content: center;
+                font-size: 14px;
+            }
+            
+            .footer-section .contact-info i {
+                margin-right: 6px;
+            }
+        }
+        
+        /* 平板端页脚样式 */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .footer-content {
+                gap: 40px;
+                padding: 0 20px;
+            }
+            
+            .footer-logo {
+                font-size: 24px;
             }
         }
         
@@ -725,7 +894,8 @@
                     <div class="footer-logo">
                         <i class="fas fa-utensils"></i> 随心点
                     </div>
-                    <p>让用户随时随地，想点就点！</p>
+                    <p class="footer-description">让用户随时随地，想点就点！</p>
+
                 </div>
                 <div class="footer-section">
                     <h3>快速链接</h3>
@@ -745,9 +915,9 @@
                 </div>
                 <div class="footer-section">
                     <h3>联系我们</h3>
-                    <p><i class="fas fa-phone"></i> 400-123-4567</p>
-                    <p><i class="fas fa-envelope"></i> info@suixindian.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 武汉信息传播职业技术学院</p>
+                    <p class="contact-info"><i class="fas fa-phone"></i> 400-123-4567</p>
+                    <p class="contact-info"><i class="fas fa-envelope"></i> info@suixindian.com</p>
+                    <p class="contact-info"><i class="fas fa-map-marker-alt"></i> 武汉信息传播职业技术学院</p>
                 </div>
             </div>
             <div class="footer-bottom">

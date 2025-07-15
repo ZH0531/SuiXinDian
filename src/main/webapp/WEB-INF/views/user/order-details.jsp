@@ -9,6 +9,8 @@
     <title>订单详情 - 随心点</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon">
+
     <style>
         /* 简约风格的订单详情页面 */
         .order-container {

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<c:url value="/static/images/favicon.ico"/>" type="image/x-icon">
     <title>${pageTitle != null ? pageTitle : '菜单浏览 - 随心点'}</title>
     <meta name="description"
           content="${pageDescription != null ? pageDescription : '浏览随心点精选美食菜单，发现您喜爱的美味佳肴'}">
