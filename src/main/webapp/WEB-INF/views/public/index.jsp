@@ -895,7 +895,7 @@
                         <i class="fas fa-utensils"></i> 随心点
                     </div>
                     <p class="footer-description">让用户随时随地，想点就点！</p>
-
+                    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="footer-beian">备案号：<span>鄂ICP备2023022652号-1</span></a>
                 </div>
                 <div class="footer-section">
                     <h3>快速链接</h3>
