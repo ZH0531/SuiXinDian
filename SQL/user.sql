@@ -7,7 +7,7 @@ CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT COMMENT '用户ID，主键',
   `user_id` varchar(50) NOT NULL COMMENT '用户账号',
   `password` varchar(255) NOT NULL COMMENT '密码',
-  `username` varchar(100) NOT NULL COMMENT '用户名称',
+  `username` varchar(100) DEFAULT NULL COMMENT '用户名称',
   `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
   `email` varchar(100) DEFAULT NULL COMMENT '电子邮箱',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',

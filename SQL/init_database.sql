@@ -1,4 +1,6 @@
 -- 初始化数据库
+-- 注意：请使用root用户执行此脚本
+
 -- 创建数据库
 CREATE DATABASE IF NOT EXISTS restaurant DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
