@@ -12,6 +12,9 @@
 
     <!-- 扫描controller和config -->
     <context:component-scan base-package="com.zh8888.controller,com.zh8888.config"/>
+    
+    <!-- 加载属性文件 (忽略无法解析的属性避免冲突) -->
+    <context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true"/>
 
     <!-- 开启mvc注解，配置消息转换器 -->
     <mvc:annotation-driven>

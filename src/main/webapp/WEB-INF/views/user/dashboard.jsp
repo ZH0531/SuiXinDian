@@ -75,6 +75,12 @@
             margin-bottom: 5px;
         }
         
+        .user-id {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+        
         .user-since {
             font-size: 14px;
             color: #777;
@@ -500,6 +506,7 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div class="user-name">${user.username != null ? user.username : user.userId}</div>
+                        <div class="user-id">用户ID：${user.userId}</div>
                     </div>
                     
                     <ul class="menu">

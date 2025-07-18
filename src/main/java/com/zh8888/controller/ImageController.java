@@ -69,9 +69,17 @@ public class ImageController {
             
             // 获取上传目录
             String uploadDir;
+            
+            // 调试信息：显示配置值
+            System.out.println("=== 图片上传调试信息 ===");
+            System.out.println("uploadPath配置值: '" + uploadPath + "'");
+            System.out.println("uploadPath是否为空: " + (uploadPath == null || uploadPath.isEmpty()));
+            System.out.println("日期路径: " + datePath);
+            
             if (uploadPath != null && !uploadPath.isEmpty()) {
                 // 使用配置的绝对路径
                 uploadDir = uploadPath + File.separator + "dishes" + File.separator + datePath;
+                System.out.println("使用外部路径: " + uploadDir);
             } else {
                 // 智能查找项目源码路径
                 String realPath = request.getServletContext().getRealPath("/");
@@ -97,13 +105,31 @@ public class ImageController {
             }
             
             File dir = new File(uploadDir);
+            System.out.println("尝试创建目录: " + uploadDir);
+            System.out.println("目录是否存在: " + dir.exists());
+            System.out.println("父目录是否存在: " + (dir.getParentFile() != null ? dir.getParentFile().exists() : "无父目录"));
+            
             if (!dir.exists()) {
                 boolean created = dir.mkdirs();
                 if (!created) {
+                    String errorMsg = "创建上传目录失败: " + uploadDir;
+                    
+                    // 提供更详细的错误信息
+                    if (dir.getParentFile() != null && !dir.getParentFile().exists()) {
+                        errorMsg += " (父目录不存在)";
+                    }
+                    if (!dir.getParentFile().canWrite()) {
+                        errorMsg += " (无写入权限)";
+                    }
+                    
+                    System.out.println("错误详情: " + errorMsg);
                     result.put("success", false);
-                    result.put("message", "创建上传目录失败，请检查权限");
+                    result.put("message", errorMsg);
                     return result;
                 }
+                System.out.println("✓ 目录创建成功");
+            } else {
+                System.out.println("✓ 目录已存在");
             }
             
             // 保存文件
